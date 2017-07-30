@@ -1,0 +1,39 @@
+{
+  "name": "candidates",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Aladdin <alaaden3000@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/asonni/candidates",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.5",
+    "bootstrap": "^3.3.7",
+    "bootstrap-rtl": "^3.4.0",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.2.1",
+    "angular-sanitize": "^1.6.5",
+    "angular-ui-router": "^1.0.5",
+    "oclazyload": "^1.1.0",
+    "angular-bootstrap": "^2.5.0",
+    "ng-file-upload": "^12.2.13",
+    "angular-toastr": "^2.1.1",
+    "angular-strap": "^2.3.12",
+    "angular-animate": "^1.6.5",
+    "angular-motion": "^0.4.4",
+    "angular-ladda": "^0.4.3",
+    "animate.css": "^3.5.2",
+    "angular-auto-validate": "^1.19.6",
+    "ng-remote-validate": "^0.6.1",
+    "pdfmake": "^0.1.31"
+  }
+}
