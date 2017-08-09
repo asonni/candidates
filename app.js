@@ -4,12 +4,39 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+var session = require('express-session');
+var passport = require('passport');
+// var assert = require('assert');
+
+var MongoDBStore = require('connect-mongodb-session')(session);
 
 const index = require('./routes/index');
 const users = require('./routes/users');
 
 const app = express();
 
+var store = new MongoDBStore({
+  uri: 'mongodb://localhost:27017/Candidates',
+  collection: 'mySessions'
+});
+
+// Catch errors
+store.on('error', function(error) {
+  assert.ifError(error);
+  assert.ok(false);
+});
+app.use(session(
+  { store: store, 
+    secret: 'SEKR37',
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 // 1 day
+    },
+    resave: true,
+    saveUninitialized: true 
+  }
+));
+app.use(passport.initialize());
+app.use(passport.session());
 // view engine setup
 app.engine('html', require('ejs').renderFile);
 app.set('views', path.join(__dirname, 'views'));
