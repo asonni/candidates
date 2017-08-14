@@ -4,12 +4,12 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-var session = require('express-session');
-var passport = require('passport');
+const session = require('express-session');
+const passport = require('passport');
 // var assert = require('assert');
+const MongoDBStore = require('connect-mongodb-session')(session);
 
-var MongoDBStore = require('connect-mongodb-session')(session);
-
+const config = require('./config');
 const index = require('./routes/index');
 const users = require('./routes/users');
 
@@ -26,13 +26,13 @@ store.on('error', function(error) {
   assert.ok(false);
 });
 app.use(session(
-  { store: store, 
-    secret: 'SEKR37',
+  { store: store,
+    secret: config.secret,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 // 1 day
     },
     resave: true,
-    saveUninitialized: true 
+    saveUninitialized: true
   }
 ));
 app.use(passport.initialize());
@@ -49,6 +49,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'bower_components')));
 
 app.use('/', index);
 app.use('/users', users);

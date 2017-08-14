@@ -1,8 +1,43 @@
+@font-face {
+  font-family: 'JFFlat';
+  src : url("../fonts/JF-Flat-regular.ttf") format("truetype");
+}
+h1, h2, h3, h4, h5, h6, a, .btn, .label {
+  font-family: 'JFFlat', sans-serif; 
+}
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding-top: 65px;
+  font-family: 'JFFlat', sans-serif;
+  font-size: 15px;
+  /*font-weight: 500;*/
+}
+.logo {
+  width: 185px;
+  height: 42px;
 }
 
-a {
-  color: #00B7FF;
+.padding-top-5 {
+  padding-top: 5px;
+}
+
+.dropdown-menu {
+  left: 0;
+  right: auto;
+}
+.panel-title {
+  font-size: 20px;
+  padding-top: 3px;
+}
+.panel-body {
+  padding: 0px;
+}
+.entries{
+  padding-top: 15px;
+}
+.entries-pagination{
+  margin-bottom: -20px;
+  margin-top: -15px;
+}
+.table-responsive{
+  margin-bottom: -20px;
 }
