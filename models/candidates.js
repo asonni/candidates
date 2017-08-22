@@ -18,6 +18,7 @@ var Candidates = new Schema({
   qualification :{type: Number},
   specialty : { type: String},
   account_number :{ type: String},
+  office: { type: Number},
   election :[{type: Schema.Types.ObjectId , ref: 'Election'}],
   competition :{type: Schema.Types.ObjectId , ref: 'Competition'},
 
