@@ -50,3 +50,6 @@ body {
 .margin-top-20 {
 	margin-top: 20px;
 }
+.ladda-button[data-style=zoom-in][data-loading] .ladda-spinner {
+	margin-left: -26px;
+}

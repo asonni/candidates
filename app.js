@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
+const assert = require('assert');
 const MongoDBStore = require('connect-mongodb-session')(session);
 
 const config = require('./config');
@@ -17,26 +18,27 @@ var elections = require('./routes/elections');
 const app = express();
 
 var store = new MongoDBStore({
-  uri: 'mongodb://localhost:27017/candidates',
-  collection: 'mySessions'
+	uri: 'mongodb://localhost:27017/candidates',
+	collection: 'mySessions'
 });
 
 // Catch errors
 store.on('error', function(error) {
-  assert.ifError(error);
-  assert.ok(false);
+	assert.ifError(error);
+	assert.ok(false);
 });
 
-app.use(session(
-  { store: store,
-    secret: config.secret,
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 24 // 1 day
-    },
-    resave: true,
-    saveUninitialized: true
-  }
-));
+app.use(
+	session({
+		store: store,
+		secret: config.secret,
+		cookie: {
+			maxAge: 1000 * 60 * 60 * 24 // 1 day
+		},
+		resave: true,
+		saveUninitialized: true
+	})
+);
 app.use(passport.initialize());
 app.use(passport.session());
 // view engine setup
@@ -56,25 +58,24 @@ app.use(express.static(path.join(__dirname, 'bower_components')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/candidates', candidates);
-app.use('/elections',elections);
-
+app.use('/elections', elections);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+	var err = new Error('Not Found');
+	err.status = 404;
+	next(err);
 });
 
 // error handler
 app.use((err, req, res, next) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+	// set locals, only providing error in development
+	res.locals.message = err.message;
+	res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+	// render the error page
+	res.status(err.status || 500);
+	res.render('error');
 });
 
 module.exports = app;

@@ -4,9 +4,10 @@
 	app.controller('electionsCtrl', [
 		'$scope',
 		'$modal',
+		'$timeout',
 		'toastr',
 		'electionService',
-		function($scope, $modal, toastr, electionService) {
+		function($scope, $modal, $timeout, toastr, electionService) {
 			$scope.pageSize = 10;
 			$scope.currentPage = 1;
 			$scope.total = 0;
@@ -59,15 +60,18 @@
 							$timeout(function() {
 								$scope.newElectionForm = {};
 								$scope.laddaStatus = false;
+								$scope.newElectionModal.hide();
 								toastr.success('تم الإضافة بنجاح');
 								$scope.refreshElections();
 							}, 1000);
 						} else {
+							$scope.newElectionModal.hide();
 							$scope.laddaStatus = false;
 							toastr.error('خطأ في عملية الادخال, الرجاء اعادة المحاولة');
 						}
 					},
 					function(response) {
+						$scope.newElectionModal.hide();
 						$scope.laddaStatus = false;
 						toastr.error(
 							'يوجد خطأ في اضافة مصرف جديد, الرجاء الاتصال بمشرف المنظومة'
@@ -95,16 +99,19 @@
 						if (response.status == 200) {
 							$timeout(function() {
 								$scope.editElectionForm = {};
+								$scope.editElectionModal.hide();
 								$scope.laddaStatus = false;
 								toastr.info('تم التعديل بنجاح');
 								$scope.refreshElections();
 							}, 1000);
 						} else {
+							$scope.editElectionModal.hide();
 							$scope.laddaStatus = false;
 							toastr.error('خطأ في عملية التعديل, الرجاء اعادة المحاولة');
 						}
 					},
 					function(response) {
+						$scope.editElectionModal.hide();
 						$scope.laddaStatus = false;
 						toastr.error('يوجد خطأ في التعديل, الرجاء الاتصال بمشرف المنظومة');
 						console.log('Something went wrong ' + response.data);
