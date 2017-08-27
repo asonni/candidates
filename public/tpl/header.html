@@ -13,11 +13,24 @@
     </div>
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;المرشحين</a></li>
-        <li><a href="#about"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;مرشح جديد</a></li>
-        <li><a href="#about"><i class="fa fa-handshake-o" aria-hidden="true"></i>&nbsp;اﻷنتخابات</a></li>
-        <li><a href="#contact"><i class="fa fa-ravelry" aria-hidden="true"></i>&nbsp;نمط التنافس</a></li>
-        <li><a href="#contact"><i class="fa fa-paperclip" aria-hidden="true"></i>&nbsp;المرفقات</a></li>
+        <li ui-sref-active="active">
+          <a ui-sref="candidates"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;المرشحين</a>
+        </li>
+        <li ui-sref-active="active">
+          <a ui-sref="newCandidate"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;مترشح جديد</a>
+        </li>
+        <li ui-sref-active="active">
+          <a ui-sref="elections"><i class="fa fa-handshake-o" aria-hidden="true"></i>&nbsp;اﻷنتخابات</a>
+        </li>
+        <li ui-sref-active="active">
+          <a href="#contact"><i class="fa fa-ravelry" aria-hidden="true"></i>&nbsp;نمط التنافس</a>
+        </li>
+        <li ui-sref-active="active">
+          <a href="#contact"><i class="fa fa-paperclip" aria-hidden="true"></i>&nbsp;المرفقات</a>
+        </li>
+        <li ui-sref-active="active">
+          <a href="#contact"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;المستخدمين</a>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-left">
         <li class="dropdown">

@@ -1,0 +1,138 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-3">
+        <h3 class="panel-title">مترشح جديد</h3>
+      </div>
+      <div class="col-md-3 col-md-offset-6 text-left">
+        <a href="#!/candidates" class="btn btn-info btn-sm">المرشحين</a>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+    معلومات عن المترشح
+    <hr>
+    <form novalidate ng-submit="newCandidate()">
+      <div class="row">
+        <div class="col-md-3 col-md-offset-3">
+          <div class="form-group">
+            <label class="control-label">الرقم الوطني</label>
+            <input class="form-control input-sm" type="text" ng-model="newCandidateForm.nid" placeholder="الرقم الوطني" autofocus ng-required="required">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="control-label">رقم كتيب العائلة</label>
+            <input class="form-control input-sm" type="text" ng-model="newCandidateForm.cra" placeholder="رقم كتيب العائلة" ng-required="required">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 col-md-offset-3">
+          <div class="form-group">
+            <label class="control-label">الاسم</label>
+            <input class="form-control input-sm" type="text" ng-model="newCandidateForm.f_name" placeholder="الاسم" ng-required="required">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="control-label">اسم اﻷب</label>
+            <input class="form-control input-sm" type="text" ng-model="newCandidateForm.p_name" placeholder="اسم اﻷب" ng-required="required">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 col-md-offset-3">
+          <div class="form-group">
+            <label class="control-label">اسم الجد</label>
+            <input class="form-control input-sm" type="text" ng-model="newCandidateForm.g_name" placeholder="اسم الجد" ng-required="required">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="control-label">اللقب</label>
+            <input class="form-control input-sm" type="text" ng-model="newCandidateForm.l_name" placeholder="اللقب" ng-required="required">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 col-md-offset-3">
+          <div class="form-group">
+            <label class="control-label">الجنس</label>
+            <select class="form-control input-sm" ng-model="newCandidateForm.gender" ng-options="genderType.id as genderType.name for genderType in genderTypes | orderBy:'id'" ng-required="required">
+              <option value="" disabled selected>الرجاء الاختيار</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="control-label">تاريخ الميلاد</label>
+            <input class="form-control input-sm" type="text" ng-model="newCandidateForm.birth_day" placeholder="تاريخ الميلاد" ng-required="required">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 col-md-offset-3">
+          <div class="form-group">
+            <label class="control-label">اسم اﻷم الثلاتي</label>
+            <input class="form-control input-sm" type="text" ng-model="newCandidateForm.gender" placeholder="اسم اﻷم الثلاتي" ng-required="required">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="control-label">نمط التنافس</label>
+            <input class="form-control input-sm" type="text" ng-model="newCandidateForm.competition" placeholder="نمط التنافس" ng-required="required">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 col-md-offset-3">
+          <div class="form-group">
+            <label class="control-label">الهاتف النقال</label>
+            <input class="form-control input-sm" type="text" ng-model="newCandidateForm.phone" placeholder="الهاتف النقال" ng-required="required">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="control-label">الهاتف اﻷرضي</label>
+            <input class="form-control input-sm" type="text" ng-model="newCandidateForm.work_phone" placeholder="الهاتف اﻷرضي" ng-required="unrequired">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 col-md-offset-3">
+          <div class="form-group">
+            <label class="control-label">البريد اﻹلكتروني</label>
+            <input class="form-control input-sm" type="text" ng-model="newCandidateForm.email" placeholder="البريد اﻹلكتروني" ng-required="required">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="control-label">المؤهل العلمي</label>
+            <input class="form-control input-sm" type="text" ng-model="newCandidateForm.qualification" placeholder="نوع المؤهل العلمي" ng-required="unrequired">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+          <div class="form-group">
+            <label class="control-label">التخصص</label>
+            <input class="form-control input-sm" type="text" ng-model="newCandidateForm.specialty" placeholder="التخصص" ng-required="unrequired">
+          </div>
+        </div>
+      </div>
+      <hr>
+      المرفقات
+      <hr>
+      <hr>
+      <div class="row btn-footer">
+        <div class="col-xs-6 col-md-2 col-md-offset-4">
+          <a href="#!/candidates" class="btn btn-default btn-sm btn-block"><i class="fa fa-ban" aria-hidden="true"></i>&nbsp;إلغاء</a>
+        </div>
+        <div class="col-xs-6 col-md-2">
+          <button type="submit" class="btn btn-primary btn-sm btn-block" ladda="laddaStatus"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;إضافة</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

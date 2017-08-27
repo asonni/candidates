@@ -1,0 +1,19 @@
+<div id="confrimModal" class="modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="$hide()">&times;</button>
+        <h4 class="modal-title">{{modalTitle}}</h4>
+      </div>
+      <form novalidate ng-submit="confirmDeleteModal(id)">
+        <div class="modal-body">
+          {{modalMessage}} ( {{modalName}} )
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default btn-sm" ng-click="deleteModal.hide()"><i class="fa fa-ban" aria-hidden="true"></i></i>&nbsp;الغاء</button>
+          <button type="submit" class="btn btn-danger btn-sm" ladda="laddaDeleteModal"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;حذف</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

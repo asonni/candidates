@@ -1,0 +1,69 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-3">
+        <h3 class="panel-title">المرشحين</h3>
+      </div>
+      <div class="col-md-6">
+        <input type="text" class="form-control input-sm" placeholder="بحث..." autofocus />
+      </div>
+      <div class="col-md-3 text-left">
+        <button class="btn btn-primary btn-sm">بحث متقدم</button>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body no-padding">
+    <!-- <div ng-hide="banks.length">
+      <div class="alert alert-info">
+        <p class="text-center">
+          عفوا لاتوجد بيانات
+        </p>
+      </div>
+    </div> -->
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered table-hover table-condensed">
+        <thead>
+          <tr>
+            <th class="text-center">الرقم الوطني</th>
+            <th class="text-center">رقم كتيب العائلة</th>
+            <th class="text-center">الاسم الرباعي</th>
+            <th class="text-center">اسم اﻷم الثلاثي</th>
+            <th class="text-center">الجنس</th>
+            <th class="text-center">تاريخ الميلاد</th>
+            <th class="text-center">الهاتف النقال</th>
+            <th class="text-center"><i class="fa fa-cog"></i></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="text-center">
+              <div class="btn-group">
+                <a class="btn btn-info btn-sm" ui-sref="editBank({id:bank._id})"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;تعديل</a>
+                <a class="btn btn-danger btn-sm" ng-click="showDeleteModal(bank._id,bank.name)"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;حذف</a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-6 entries-pagination">
+          <ul uib-pagination class="hidden-xs btn-sm" boundary-links="true" rotate="false" max-size="5" total-items="total" ng-model="currentPage" num-pages="numPages" items-per-page="pageSize" ng-change="init()" previous-text="السابق" next-text="التالي" first-text="الاول" last-text="الاخير"></ul>
+          <ul uib-pagination class="visible-xs pagination-sm" boundary-links="true" rotate="false" max-size="3" total-items="total" ng-model="currentPage" num-pages="numPages" items-per-page="pageSize" ng-change="init()" previous-text="‹" next-text="›" first-text="«" last-text="»"></ul>
+        </div>
+        <div class="col-xs-12 col-md-6 text-left entries">
+          الصفحة : {{currentPage}} / {{numPages}} من {{total}} مرشحين
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>

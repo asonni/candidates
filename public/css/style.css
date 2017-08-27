@@ -28,7 +28,7 @@ body {
   font-size: 20px;
   padding-top: 3px;
 }
-.panel-body {
+.no-padding {
   padding: 0px;
 }
 .entries{
