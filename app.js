@@ -6,17 +6,18 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
-// var assert = require('assert');
 const MongoDBStore = require('connect-mongodb-session')(session);
 
 const config = require('./config');
 const index = require('./routes/index');
 const users = require('./routes/users');
+var candidates = require('./routes/candidates');
+
 
 const app = express();
 
 var store = new MongoDBStore({
-  uri: 'mongodb://localhost:27017/Candidates',
+  uri: 'mongodb://localhost:27017/candidates',
   collection: 'mySessions'
 });
 
@@ -25,6 +26,7 @@ store.on('error', function(error) {
   assert.ifError(error);
   assert.ok(false);
 });
+
 app.use(session(
   { store: store,
     secret: config.secret,
@@ -53,6 +55,8 @@ app.use(express.static(path.join(__dirname, 'bower_components')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/candidates', candidates);
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

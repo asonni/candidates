@@ -3,7 +3,7 @@ var timestamps = require('mongoose-timestamp');
 var Schema = mongoose.Schema;
 
 var Elections = new Schema({
-  f_name: { type: String}
+  name: { type: String}
 });
 
 Elections.plugin(timestamps);
