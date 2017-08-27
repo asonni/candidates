@@ -12,7 +12,7 @@ const config = require('./config');
 const index = require('./routes/index');
 const users = require('./routes/users');
 var candidates = require('./routes/candidates');
-
+var elections = require('./routes/elections');
 
 const app = express();
 
@@ -56,6 +56,7 @@ app.use(express.static(path.join(__dirname, 'bower_components')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/candidates', candidates);
+app.use('/elections',elections);
 
 
 // catch 404 and forward to error handler
