@@ -1,43 +1,52 @@
 @font-face {
-  font-family: 'JFFlat';
-  src : url("../fonts/JF-Flat-regular.ttf") format("truetype");
+	font-family: 'JFFlat';
+	src: url("../fonts/JF-Flat-regular.ttf") format("truetype");
 }
-h1, h2, h3, h4, h5, h6, a, .btn, .label {
-  font-family: 'JFFlat', sans-serif; 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+.btn,
+.label {
+	font-family: 'JFFlat', sans-serif;
 }
 body {
-  padding-top: 65px;
-  font-family: 'JFFlat', sans-serif;
-  font-size: 15px;
-  /*font-weight: 500;*/
+	padding-top: 65px;
+	font-family: 'JFFlat', sans-serif;
+	font-size: 15px;
+	/*font-weight: 500;*/
 }
 .logo {
-  width: 185px;
-  height: 42px;
+	width: 185px;
+	height: 42px;
 }
-
 .padding-top-5 {
-  padding-top: 5px;
+	padding-top: 5px;
 }
-
 .dropdown-menu {
-  left: 0;
-  right: auto;
+	left: 0;
+	right: auto;
 }
 .panel-title {
-  font-size: 20px;
-  padding-top: 3px;
+	font-size: 20px;
+	padding-top: 3px;
 }
 .no-padding {
-  padding: 0px;
+	padding: 0px;
 }
-.entries{
-  padding-top: 15px;
+.entries {
+	padding-top: 15px;
 }
-.entries-pagination{
-  margin-bottom: -20px;
-  margin-top: -15px;
+.entries-pagination {
+	margin-bottom: -20px;
+	margin-top: -15px;
 }
-.table-responsive{
-  margin-bottom: -20px;
+.table-responsive {
+	margin-bottom: -20px;
+}
+.margin-top-20 {
+	margin-top: 20px;
 }

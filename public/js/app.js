@@ -43,7 +43,25 @@
 		'$stateProvider',
 		'$urlRouterProvider',
 		'$modalProvider',
-		function($stateProvider, $urlRouterProvider, $modalProvider) {
+		'laddaProvider',
+		'toastrConfig',
+		function(
+			$stateProvider,
+			$urlRouterProvider,
+			$modalProvider,
+			laddaProvider,
+			toastrConfig
+		) {
+			laddaProvider.setOption({
+				/* optional */
+				style: 'zoom-in'
+			});
+			angular.extend(toastrConfig, {
+				positionClass: 'toast-top-left',
+				progressBar: true,
+				tapToDismiss: true,
+				preventOpenDuplicates: true
+			});
 			angular.extend($modalProvider.defaults, {
 				animation: 'animated zoomIn'
 			});
