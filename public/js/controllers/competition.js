@@ -1,117 +1,118 @@
 (function() {
 	'use strict';
 	var app = angular.module('candidates');
-	app.controller('electionsCtrl', [
+	// competitions
+	app.controller('competitionsCtrl', [
 		'$scope',
 		'$modal',
 		'$timeout',
 		'toastr',
-		'electionService',
-		function($scope, $modal, $timeout, toastr, electionService) {
+		'competitionService',
+		function($scope, $modal, $timeout, toastr, competitionService) {
 			$scope.pageSize = 10;
 			$scope.currentPage = 1;
 			$scope.total = 0;
 			$scope.required = true;
 			$scope.unrequited = false;
 			$scope.laddaStatus = false;
-			$scope.elections = [];
-			$scope.newElectionForm = {};
-			$scope.editElectionForm = {};
+			$scope.competitions = [];
+			$scope.newCompetitionForm = {};
+			$scope.editCompetitionForm = {};
 
-			$scope.refreshElections = function() {
-				electionService
-					.fetchElections($scope.pageSize, $scope.currentPage)
+			$scope.refreshCompetitions = function() {
+				competitionService
+					.fetchCompetitions($scope.pageSize, $scope.currentPage)
 					.then(
 						function(response) {
 							if (response.status == 200) {
-								$scope.elections = response.data.result;
+								$scope.competitions = response.data.result;
 								$scope.total = response.data.count;
 							} else {
 								toastr.error(
-									'يوجد خطأ في عرض انواع الانتخابات, الرجاء المحاولة لاحقا'
+									'يوجد خطأ في عرض انماط التنافس, الرجاء المحاولة لاحقا'
 								);
 							}
 						},
 						function(response) {
 							toastr.error(
-								'يوجد خطأ في عرض انواع الانتخابات, الرجاء الاتصال بمشرف المنظومة'
+								'يوجد خطأ في عرض انماط التنافس, الرجاء الاتصال بمشرف المنظومة'
 							);
 							console.log('Something went wrong ' + response.data);
 						}
 					);
 			};
 
-			$scope.refreshElections();
+			$scope.refreshCompetitions();
 
-			$scope.showNewElectionModal = function() {
-				$scope.modalTitle = 'إضافة نوع انتخابات جديدة';
-				$scope.newElectionModal = $modal({
+			$scope.showNewCompetitionModal = function() {
+				$scope.modalTitle = 'إضافة نمط تنافسي جديد';
+				$scope.newCompetitionModal = $modal({
 					scope: $scope,
-					templateUrl: 'pages/election/newElection.html',
+					templateUrl: 'pages/competition/newCompetition.html',
 					show: true
 				});
 			};
 
-			$scope.newElection = function() {
+			$scope.newCompetition = function() {
 				$scope.laddaStatus = true;
-				electionService.newElection($scope.newElectionForm).then(
+				competitionService.newCompetition($scope.newCompetitionForm).then(
 					function(response) {
 						if (response.data && response.status == 200) {
 							$timeout(function() {
-								$scope.newElectionForm = {};
+								$scope.newCompetitionForm = {};
 								$scope.laddaStatus = false;
-								$scope.newElectionModal.hide();
+								$scope.newCompetitionModal.hide();
 								toastr.success('تم الإضافة بنجاح');
-								$scope.refreshElections();
+								$scope.refreshCompetitions();
 							}, 1000);
 						} else {
-							$scope.newElectionModal.hide();
+							$scope.newCompetitionModal.hide();
 							$scope.laddaStatus = false;
 							toastr.error('خطأ في عملية الادخال, الرجاء اعادة المحاولة');
 						}
 					},
 					function(response) {
-						$scope.newElectionModal.hide();
+						$scope.newCompetitionModal.hide();
 						$scope.laddaStatus = false;
 						toastr.error(
-							'يوجد خطأ في إضافة انتخابات جديدة, الرجاء الاتصال بمشرف المنظومة'
+							'يوجد خطأ في إضافة نمط تنافسي جديد, الرجاء الاتصال بمشرف المنظومة'
 						);
 						console.log('Something went wrong ' + response.data);
 					}
 				);
 			};
 
-			$scope.showEditElectionModal = function(id, name) {
+			$scope.showEditCompetitionModal = function(id, name) {
 				$scope.id = id;
-				$scope.editElectionForm.name = name;
-				$scope.modalTitle = 'تعديل نوع من الانتخابات';
-				$scope.editElectionModal = $modal({
+				$scope.editCompetitionForm.name = name;
+				$scope.modalTitle = 'تعديل نوع من انماط التنافس';
+				$scope.editCompetitionModal = $modal({
 					scope: $scope,
-					templateUrl: 'pages/election/editElection.html',
+					templateUrl: 'pages/competition/editCompetition.html',
 					show: true
 				});
 			};
 
-			$scope.editElection = function(id) {
+			$scope.editCompetition = function(id) {
 				$scope.laddaStatus = true;
-				electionService.editElection(id, $scope.editElectionForm).then(
+				competitionService.editCompetition(id, $scope.editCompetitionForm).then(
 					function(response) {
 						if (response.status == 200) {
 							$timeout(function() {
-								$scope.editElectionForm = {};
-								$scope.editElectionModal.hide();
+								$scope.editCompetitionForm = {};
+								$scope.editCompetitionModal.hide();
 								$scope.laddaStatus = false;
 								toastr.info('تم التعديل بنجاح');
-								$scope.refreshElections();
+								$scope.refreshCompetitions();
 							}, 1000);
 						} else {
-							$scope.editElectionModal.hide();
+							$scope.editCompetitionModal.hide();
 							$scope.laddaStatus = false;
 							toastr.error('خطأ في عملية التعديل, الرجاء اعادة المحاولة');
 						}
 					},
 					function(response) {
-						$scope.editElectionModal.hide();
+						$scope.editCompetitionModal.hide();
 						$scope.laddaStatus = false;
 						toastr.error('يوجد خطأ في التعديل, الرجاء الاتصال بمشرف المنظومة');
 						console.log('Something went wrong ' + response.data);
@@ -132,7 +133,7 @@
 			};
 
 			$scope.confirmDeleteModal = function(id) {
-				electionService.deleteElection(id).then(
+				competitionService.deleteCompetition(id).then(
 					function(response) {
 						if (response.data.result == 1 && response.status == 200) {
 							$scope.deleteModal.hide();
@@ -141,7 +142,7 @@
 						} else if (response.data.result == 2 && response.status == 200) {
 							$scope.deleteModal.hide();
 							toastr.info(
-								'لا يمكن حذف هذا النوع من الانتخابات لاعتماده علي كيانات اخري'
+								'لا يمكن حذف هذا النوع من انماط التنافس لاعتماده علي كيانات اخري'
 							);
 						} else if (response.data.result == 3 && response.status == 200) {
 							$scope.deleteModal.hide();

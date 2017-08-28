@@ -1,51 +1,58 @@
 (function() {
 	'use strict';
-	angular.module('candidates').service('electionService', [
+	angular.module('candidates').service('competitionService', [
 		'$http',
 		function($http) {
 			var self = {
-				fetchElections: function(limit, page) {
+				fetchCompetitions: function(limit, page) {
 					var promise = $http
-						.get('/elections/' + limit + '/' + page)
+						.get('/competitions/' + limit + '/' + page)
 						.then(function(response) {
 							return response;
 						});
 					return promise;
 				},
-				search: function(electionName, limit, page) {
+				search: function(competitionName, limit, page) {
 					var promise = $http
-						.get('/elections/search/' + electionName + '/' + limit + '/' + page)
+						.get(
+							'/competitions/search/' +
+								competitionName +
+								'/' +
+								limit +
+								'/' +
+								page
+						)
 						.then(function(response) {
 							return response;
 						});
 					return promise;
 				},
-				newElection: function(newElection) {
+				newCompetition: function(newCompetition) {
 					var promise = $http
-						.post('/elections', newElection)
+						.post('/competitions', newCompetition)
 						.then(function(response) {
 							return response;
 						});
 					return promise;
 				},
-				editElection: function(id, editElection) {
+				editCompetition: function(id, editCompetition) {
 					var promise = $http
-						.put('/elections/' + id, editElection)
+						.put('/competitions/' + id, editCompetition)
 						.then(function(response) {
 							return response;
 						});
 					return promise;
 				},
-				deleteElection: function(id) {
+				deleteCompetition: function(id) {
 					var promise = $http
-						.delete('/elections/' + id)
+						.delete('/competitions/' + id)
 						.then(function(response) {
 							return response;
 						});
 					return promise;
 				},
-				fetchAllElections: function() {
-					var promise = $http.get('/elections/all').then(function(response) {
+				fetchAllCompetitions: function() {
+					var promise = $http.get('/competitions/all').then(function(response) {
 						return response;
 					});
 					return promise;
