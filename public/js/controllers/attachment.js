@@ -20,7 +20,7 @@
 
       $scope.refreshAttachments = function() {
         attachmentService
-          .fetchCompetitions($scope.pageSize, $scope.currentPage)
+          .fetchAttachments($scope.pageSize, $scope.currentPage)
           .then(
             function(response) {
               if (response.status == 200) {
