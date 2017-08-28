@@ -1,118 +1,115 @@
 (function() {
   'use strict';
   var app = angular.module('candidates');
-  // competitions
-  app.controller('competitionsCtrl', [
+  app.controller('attachmentsCtrl', [
     '$scope',
     '$modal',
     '$timeout',
     'toastr',
-    'competitionService',
-    function($scope, $modal, $timeout, toastr, competitionService) {
+    'attachmentService',
+    function($scope, $modal, $timeout, toastr, attachmentService) {
       $scope.pageSize = 10;
       $scope.currentPage = 1;
       $scope.total = 0;
       $scope.required = true;
       $scope.unrequited = false;
       $scope.laddaStatus = false;
-      $scope.competitions = [];
-      $scope.newCompetitionForm = {};
-      $scope.editCompetitionForm = {};
+      $scope.attachments = [];
+      $scope.newAttachmentForm = {};
+      $scope.editAttachmentForm = {};
 
-      $scope.refreshCompetitions = function() {
-        competitionService
+      $scope.refreshAttachments = function() {
+        attachmentService
           .fetchCompetitions($scope.pageSize, $scope.currentPage)
           .then(
             function(response) {
               if (response.status == 200) {
-                $scope.competitions = response.data.result;
+                $scope.attachments = response.data.result;
                 $scope.total = response.data.count;
               } else {
-                toastr.error(
-                  'يوجد خطأ في عرض انماط التنافس, الرجاء المحاولة لاحقا'
-                );
+                toastr.error('يوجد خطأ في عرض المرفقات, الرجاء المحاولة لاحقا');
               }
             },
             function(response) {
               toastr.error(
-                'يوجد خطأ في عرض انماط التنافس, الرجاء الاتصال بمشرف المنظومة'
+                'يوجد خطأ في عرض المرفقات, الرجاء الاتصال بمشرف المنظومة'
               );
               console.log('Something went wrong ' + response.data);
             }
           );
       };
 
-      $scope.refreshCompetitions();
+      $scope.refreshAttachments();
 
-      $scope.showNewCompetitionModal = function() {
-        $scope.modalTitle = 'إضافة نمط تنافسي جديد';
-        $scope.newCompetitionModal = $modal({
+      $scope.showNewAttachmentModal = function() {
+        $scope.modalTitle = 'إضافة مرفق جديد';
+        $scope.newAttachmentModal = $modal({
           scope: $scope,
-          templateUrl: 'pages/competition/newCompetition.html',
+          templateUrl: 'pages/attachment/newAttachment.html',
           show: true
         });
       };
 
-      $scope.newCompetition = function() {
+      $scope.newAttachment = function() {
         $scope.laddaStatus = true;
-        competitionService.newCompetition($scope.newCompetitionForm).then(
+        attachmentService.newAttachment($scope.newAttachmentForm).then(
           function(response) {
             if (response.data && response.status == 200) {
               $timeout(function() {
-                $scope.newCompetitionForm = {};
+                $scope.newAttachmentForm = {};
                 $scope.laddaStatus = false;
-                $scope.newCompetitionModal.hide();
+                $scope.newAttachmentModal.hide();
                 toastr.success('تم الإضافة بنجاح');
-                $scope.refreshCompetitions();
+                $scope.refreshAttachments();
               }, 1000);
             } else {
-              $scope.newCompetitionModal.hide();
+              $scope.newAttachmentModal.hide();
               $scope.laddaStatus = false;
               toastr.error('خطأ في عملية الادخال, الرجاء اعادة المحاولة');
             }
           },
           function(response) {
-            $scope.newCompetitionModal.hide();
+            $scope.newAttachmentModal.hide();
             $scope.laddaStatus = false;
             toastr.error(
-              'يوجد خطأ في إضافة نمط تنافسي جديد, الرجاء الاتصال بمشرف المنظومة'
+              'يوجد خطأ في إضافة مرفق جديد, الرجاء الاتصال بمشرف المنظومة'
             );
             console.log('Something went wrong ' + response.data);
           }
         );
       };
 
-      $scope.showEditCompetitionModal = function(id, name) {
+      $scope.showEditAttachmentModal = function(id, name) {
         $scope.id = id;
-        $scope.editCompetitionForm.name = name;
-        $scope.modalTitle = 'تعديل نوع من انماط التنافس';
-        $scope.editCompetitionModal = $modal({
+        $scope.editAttachmentForm.name = name;
+        $scope.modalTitle = 'تعديل نوع من المرفقات';
+        $scope.editAttachmentModal = $modal({
           scope: $scope,
-          templateUrl: 'pages/competition/editCompetition.html',
+          templateUrl: 'pages/attachment/editAttachment.html',
           show: true
         });
       };
 
-      $scope.editCompetition = function(id) {
+      $scope.editAttachment = function(id) {
         $scope.laddaStatus = true;
-        competitionService.editCompetition(id, $scope.editCompetitionForm).then(
+        attachmentService.editAttachment(id, $scope.editAttachmentForm).then(
           function(response) {
             if (response.status == 200) {
               $timeout(function() {
-                $scope.editCompetitionForm = {};
-                $scope.editCompetitionModal.hide();
+                $scope.editAttachmentForm = {};
+                $scope.editAttachmentModal.hide();
                 $scope.laddaStatus = false;
                 toastr.info('تم التعديل بنجاح');
-                $scope.refreshCompetitions();
+                $scope.refreshAttachments();
               }, 1000);
             } else {
-              $scope.editCompetitionModal.hide();
+              $scope.editAttachmentModal.hide();
               $scope.laddaStatus = false;
               toastr.error('خطأ في عملية التعديل, الرجاء اعادة المحاولة');
             }
           },
           function(response) {
-            $scope.editCompetitionModal.hide();
+            $scope.editAttachmentModal.hide();
             $scope.laddaStatus = false;
             toastr.error('يوجد خطأ في التعديل, الرجاء الاتصال بمشرف المنظومة');
             console.log('Something went wrong ' + response.data);
@@ -123,7 +120,7 @@
       $scope.showDeleteModal = function(id, name) {
         $scope.id = id;
         $scope.modalTitle = 'رسالة تأكيد على الحذف';
-        $scope.modalMessage = 'هل تريد فعلا حذف هذا النمط التنافسي';
+        $scope.modalMessage = 'هل تريد فعلا حدف هذا المرفق';
         $scope.modalName = name;
         $scope.deleteModal = $modal({
           scope: $scope,
@@ -133,7 +130,7 @@
       };
 
       $scope.confirmDeleteModal = function(id) {
-        competitionService.deleteCompetition(id).then(
+        attachmentService.deleteAttachment(id).then(
           function(response) {
             if (response.data.result == 1 && response.status == 200) {
               $scope.deleteModal.hide();
@@ -142,7 +139,7 @@
             } else if (response.data.result == 2 && response.status == 200) {
               $scope.deleteModal.hide();
               toastr.info(
-                'لا يمكن حذف هذا النوع من انماط التنافس لاعتماده علي كيانات اخري'
+                'لا يمكن حذف هذا النوع من المرفقات لاعتماده علي كيانات اخري'
               );
             } else if (response.data.result == 3 && response.status == 200) {
               $scope.deleteModal.hide();
