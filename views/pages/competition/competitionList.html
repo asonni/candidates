@@ -2,58 +2,58 @@
   <div class="panel-heading">
     <div class="row">
       <div class="col-md-3">
-        <h3 class="panel-title">الانتخابات</h3>
+        <h3 class="panel-title">انماط التنافس</h3>
       </div>
       <div class="col-md-6">
         <input type="text" class="form-control input-sm" placeholder="بحث..." autofocus />
       </div>
       <div class="col-md-3 text-left">
-        <button class="btn btn-primary btn-sm" ng-click="showNewElectionModal()">
+        <button class="btn btn-primary btn-sm" ng-click="showNewCompetitionModal()">
           <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;
-          انتخابات جديدة
+          نمط تنافس جديد
         </button>
       </div>
     </div>
   </div>
   <div class="panel-body margin-top-20">
-    <div ng-hide="elections.length">
+    <div ng-hide="competitions.length">
       <div class="alert alert-info">
         <p class="text-center">
           عفوا لاتوجد بيانات
         </p>
       </div>
     </div>
-    <div class="table-responsive" ng-show="elections.length">
+    <div class="table-responsive" ng-show="competitions.length">
       <table class="table table-striped table-bordered table-hover table-condensed">
         <thead>
           <tr>
             <th class="text-center">ر.ت</th>
-            <th class="text-center">نوع الانتخابات</th>
+            <th class="text-center">نوع نمط التنافس</th>
             <th class="text-center" width="15%"><i class="fa fa-cog"></i></th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="election in elections">
+          <tr ng-repeat="competition in competitions">
             <td class="text-center">{{$index + 1}}</td>
-            <td class="text-center">{{election.name}}</td>
+            <td class="text-center">{{competition.name}}</td>
             <td class="text-center">
               <div class="btn-group">
-                <a class="btn btn-info btn-sm" ng-click="showEditElectionModal(election._id, election.name)"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;تعديل</a>
-                <a class="btn btn-danger btn-sm" ng-click="showDeleteModal(election._id,election.name)"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;حذف</a>
+                <a class="btn btn-info btn-sm" ng-click="showEditCompetitionModal(competition._id, competition.name)"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;تعديل</a>
+                <a class="btn btn-danger btn-sm" ng-click="showDeleteModal(competition._id, competition.name)"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;حذف</a>
               </div>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="container" ng-show="elections.length">
+    <div class="container" ng-show="competitions.length">
       <div class="row">
         <div class="col-xs-12 col-md-6 entries-pagination">
           <ul uib-pagination class="hidden-xs btn-sm" boundary-links="true" rotate="false" max-size="5" total-items="total" ng-model="currentPage" num-pages="numPages" items-per-page="pageSize" ng-change="init()" previous-text="السابق" next-text="التالي" first-text="الاول" last-text="الاخير"></ul>
           <ul uib-pagination class="visible-xs pagination-sm" boundary-links="true" rotate="false" max-size="3" total-items="total" ng-model="currentPage" num-pages="numPages" items-per-page="pageSize" ng-change="init()" previous-text="‹" next-text="›" first-text="«" last-text="»"></ul>
         </div>
         <div class="col-xs-12 col-md-6 text-left entries">
-          الصفحة : {{currentPage}} / {{numPages}} من {{total}} انتخابات
+          الصفحة : {{currentPage}} / {{numPages}} من {{total}} انماط التنافس
         </div>
       </div>
     </div>

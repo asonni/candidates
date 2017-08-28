@@ -152,6 +152,27 @@
 							}
 						]
 					}
+				})
+				.state('competitions', {
+					url: '/competition',
+					templateUrl: 'pages/competition/competitionList',
+					data: { pageTitle: 'انماط التنافس' },
+					controller: 'competitionsCtrl',
+					resolve: {
+						deps: [
+							'$ocLazyLoad',
+							function($ocLazyLoad) {
+								return $ocLazyLoad.load({
+									insertBefore: '#ngLoadControllersBefore',
+									files: [
+										'/js/services/helpers.js',
+										'/js/services/competition.js',
+										'/js/controllers/competition.js'
+									]
+								});
+							}
+						]
+					}
 				});
 		}
 	]);

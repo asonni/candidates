@@ -7,13 +7,8 @@ var userHelpers = require("../controller/userHelpers");
 
 
 
-router.get('/all', userHelpers.isLogin,function(req, res){
-  ElectionMgr.getAllCandidates(function(Candidates){
-    res.send(Candidates);
-  });
-});
 
-router.post('/new',userHelpers.isLogin,function(req, res) {
+router.post('/',userHelpers.isLogin,function(req, res) {
   ElectionMgr.newElection(req.body,function(newElection){
     res.send(newElection);
   });
