@@ -19,26 +19,26 @@ var competitions =require('./routes/competitions');
 const app = express();
 
 var store = new MongoDBStore({
-	uri: 'mongodb://localhost:27017/candidates',
-	collection: 'mySessions'
+  uri: 'mongodb://localhost:27017/candidates',
+  collection: 'mySessions'
 });
 
 // Catch errors
 store.on('error', function(error) {
-	assert.ifError(error);
-	assert.ok(false);
+  assert.ifError(error);
+  assert.ok(false);
 });
 
 app.use(
-	session({
-		store: store,
-		secret: config.secret,
-		cookie: {
-			maxAge: 1000 * 60 * 60 * 24 // 1 day
-		},
-		resave: true,
-		saveUninitialized: true
-	})
+  session({
+    store: store,
+    secret: config.secret,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24 // 1 day
+    },
+    resave: true,
+    saveUninitialized: true
+  })
 );
 app.use(passport.initialize());
 app.use(passport.session());
@@ -64,20 +64,20 @@ app.use('/competitions', competitions);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-	var err = new Error('Not Found');
-	err.status = 404;
-	next(err);
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
 // error handler
 app.use((err, req, res, next) => {
-	// set locals, only providing error in development
-	res.locals.message = err.message;
-	res.locals.error = req.app.get('env') === 'development' ? err : {};
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-	// render the error page
-	res.status(err.status || 500);
-	res.render('error');
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
 module.exports = app;

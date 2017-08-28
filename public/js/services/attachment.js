@@ -1,58 +1,53 @@
 (function() {
   'use strict';
-  angular.module('candidates').service('competitionService', [
+  angular.module('candidates').service('attachmentService', [
     '$http',
     function($http) {
       var self = {
-        fetchCompetitions: function(limit, page) {
+        fetchAttachments: function(limit, page) {
           var promise = $http
-            .get('/competitions/' + limit + '/' + page)
+            .get('/attachments/' + limit + '/' + page)
             .then(function(response) {
               return response;
             });
           return promise;
         },
-        search: function(competitionName, limit, page) {
+        search: function(attachmentName, limit, page) {
           var promise = $http
             .get(
-              '/competitions/search/' +
-                competitionName +
-                '/' +
-                limit +
-                '/' +
-                page
+              '/attachments/search/' + attachmentName + '/' + limit + '/' + page
             )
             .then(function(response) {
               return response;
             });
           return promise;
         },
-        newCompetition: function(newCompetition) {
+        newAttachment: function(newAttachment) {
           var promise = $http
-            .post('/competitions', newCompetition)
+            .post('/attachments', newAttachment)
             .then(function(response) {
               return response;
             });
           return promise;
         },
-        editCompetition: function(id, editCompetition) {
+        editAttachment: function(id, editAttachment) {
           var promise = $http
-            .put('/competitions/' + id, editCompetition)
+            .put('/attachments/' + id, editAttachment)
             .then(function(response) {
               return response;
             });
           return promise;
         },
-        deleteCompetition: function(id) {
+        deleteAttachment: function(id) {
           var promise = $http
-            .delete('/competitions/' + id)
+            .delete('/attachments/' + id)
             .then(function(response) {
               return response;
             });
           return promise;
         },
-        fetchAllCompetitions: function() {
-          var promise = $http.get('/competitions/all').then(function(response) {
+        fetchAllAttachments: function() {
+          var promise = $http.get('/attachments/all').then(function(response) {
             return response;
           });
           return promise;
