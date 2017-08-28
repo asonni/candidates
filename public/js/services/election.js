@@ -22,7 +22,7 @@
 				},
 				newElection: function(newElection) {
 					var promise = $http
-						.post('/elections/new', newElection)
+						.post('/elections/', newElection)
 						.then(function(response) {
 							return response;
 						});
