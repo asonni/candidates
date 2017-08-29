@@ -31,7 +31,7 @@ router.get('/:limit/:page',userHelpers.isLogin , function(req, res) {
 
 
 router.get('/:id',userHelpers.isLogin , function(req, res) {
-  CompetitionsMgr.getCandidateId(req.params.id,function(competitions){
+  CompetitionsMgr.getCompetitionId(req.params.id,function(competitions){
     res.send(competitions);
   });
 });

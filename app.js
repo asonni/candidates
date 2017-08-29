@@ -15,6 +15,7 @@ const users = require('./routes/users');
 var candidates = require('./routes/candidates');
 var elections = require('./routes/elections');
 var competitions =require('./routes/competitions');
+var attachments =require('./routes/attachments');
 
 const app = express();
 
@@ -61,6 +62,7 @@ app.use('/users', users);
 app.use('/candidates', candidates);
 app.use('/elections', elections);
 app.use('/competitions', competitions);
+app.use('/attachments', attachments);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

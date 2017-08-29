@@ -3,7 +3,7 @@ var timestamps = require('mongoose-timestamp');
 var Schema = mongoose.Schema;
 
 var Attachment = new Schema({
-  attachment: { type: String},
+  name: { type: String},
   election :{type: Schema.Types.ObjectId , ref: 'Election'}
 });
 
