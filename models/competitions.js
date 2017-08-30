@@ -8,5 +8,5 @@ var Competition = new Schema({
 });
 
 Competition.plugin(timestamps);
-Competition.index({ attachment: 'text'});
+Competition.index({ name: 'text'});
 exports.Competition = mongoose.model('Competition', Competition);

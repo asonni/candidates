@@ -54,7 +54,7 @@
         $scope.laddaStatus = true;
         attachmentService.newAttachment($scope.newAttachmentForm).then(
           function(response) {
-            if (response.data && response.status == 200) {
+            if (!response.data.err && response.status == 200) {
               $timeout(function() {
                 $scope.newAttachmentForm = {};
                 $scope.laddaStatus = false;
@@ -62,7 +62,11 @@
                 toastr.success('تم الإضافة بنجاح');
                 $scope.refreshAttachments();
               }, 1000);
-            } else {
+            } else if(response.data.err==3){
+              $scope.newAttachmentModal.hide();
+              $scope.laddaStatus = false;
+              toastr.error('خطأ الرجاء ادخال إنتخبات ');
+            }else {
               $scope.newAttachmentModal.hide();
               $scope.laddaStatus = false;
               toastr.error('خطأ في عملية الادخال, الرجاء اعادة المحاولة');

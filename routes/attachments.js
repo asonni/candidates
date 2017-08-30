@@ -7,6 +7,7 @@ var userHelpers = require("../controller/userHelpers");
 
 router.post('/',userHelpers.isLogin,function(req, res) {
   AttachmentsMgr.newAttachment(req.body,function(newAttachment){
+
     res.send(newAttachment);
   });
 });

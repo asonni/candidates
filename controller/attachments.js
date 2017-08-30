@@ -7,20 +7,25 @@ module.exports = {
   newAttachment : function(body,cb){
     var obj = body;
     model.Elections.findOne().sort({_id: -1}).exec(function(err,elections){
-      if(!err){
-        obj['election']=elections._id;
-        attachment = new model.Attachment(obj);
-        attachment.save(function(err){
-          if (!err) {
-            cb(true);
-          } else {
-            // console.log(err);
-            cb(false);
-          }
-        });
+      if(!err){        
+        if(elections != null){
+          obj['election']=elections._id;
+          attachment = new model.Attachment(obj);
+          attachment.save(function(err){
+            if (!err) {
+              cb({result:true,err:0});
+            } else {
+              // console.log(err);
+              cb({result:false,err:2});
+            }
+          });
+        }else{
+          cb({result:false,err:3});
+        }
+        
       }else{
         // console.log(err);
-        cb(null);
+        cb({result:false,err:1});
       }
     });
     

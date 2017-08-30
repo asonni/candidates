@@ -8,5 +8,5 @@ var Attachment = new Schema({
 });
 
 Attachment.plugin(timestamps);
-Attachment.index({ attachment: 'text'});
+Attachment.index({ name: 'text'});
 exports.Attachment = mongoose.model('Attachment', Attachment);

@@ -57,7 +57,7 @@
         $scope.laddaStatus = true;
         competitionService.newCompetition($scope.newCompetitionForm).then(
           function(response) {
-            if (response.data && response.status == 200) {
+            if (!response.data.err && response.status == 200) {
               $timeout(function() {
                 $scope.newCompetitionForm = {};
                 $scope.laddaStatus = false;
@@ -65,6 +65,10 @@
                 toastr.success('تم الإضافة بنجاح');
                 $scope.refreshCompetitions();
               }, 1000);
+            } else if(response.data.err==3){
+              $scope.newCompetitionModal.hide();
+              $scope.laddaStatus = false;
+              toastr.error('خطأ الرجاء ادخال إنتخبات ');
             } else {
               $scope.newCompetitionModal.hide();
               $scope.laddaStatus = false;

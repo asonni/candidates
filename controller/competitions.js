@@ -7,20 +7,25 @@ module.exports = {
   newCompetition : function(body,cb){
     var obj = body;
     model.Elections.findOne().sort({_id: -1}).exec(function(err,elections){
-      if(!err){
-        obj['election']=elections._id;
-        competition = new model.Competition(obj);
-        competition.save(function(err){
-          if (!err) {
-            cb(true);
-          } else {
-            // console.log(err);
-            cb(false);
-          }
-        });
+      if(!err){        
+        if(elections != null){
+          obj['election']=elections._id;
+          competition = new model.Competition(obj);
+          competition.save(function(err){
+            if (!err) {
+              cb({result:true,err:0});
+            } else {
+              // console.log(err);
+              cb({result:false,err:2});
+            }
+          });
+        }else{
+          cb({result:false,err:3});
+        }
+        
       }else{
         // console.log(err);
-        cb(null);
+        cb({result:false,err:1});
       }
     });
     
@@ -49,6 +54,15 @@ module.exports = {
       } else {
         // console.log(err);
         cb(false);
+      }
+    });
+  },
+  getCompetitionId :function(id,cb){
+    model.Competition.findOne({_id : id}, function(err, result){
+      if(!err){
+        cb(result);
+      }else{
+        cb(null);
       }
     });
   },
