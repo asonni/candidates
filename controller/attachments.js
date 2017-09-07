@@ -1,6 +1,5 @@
 var model = require("../models");
 var attachment = null;
-
 module.exports = {
 
 
@@ -59,6 +58,15 @@ module.exports = {
   },
   getAttachmentId :function(id,cb){
     model.Attachment.findOne({_id : id}, function(err, result){
+      if(!err){
+        cb(result);
+      }else{
+        cb(null);
+      }
+    });
+  },
+  getAttachmentElection :function(id,cb){
+    model.Attachment.find({election : id}, function(err, result){
       if(!err){
         cb(result);
       }else{

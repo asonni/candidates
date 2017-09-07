@@ -66,5 +66,14 @@ module.exports = {
       }
     });
   },
+  getCompetitionsElection :function(id,cb){
+    model.Competition.find({election : id}, function(err, result){
+      if(!err){
+        cb(result);
+      }else{
+        cb(null);
+      }
+    });
+  },
 };
 

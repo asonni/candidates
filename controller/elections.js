@@ -43,5 +43,14 @@ module.exports = {
       }
     });
   },
+  getLastElection : function(cb){
+    model.Elections.findOne().sort({_id: -1}).exec(function(err,elections){
+      if(!err && elections != null){        
+        cb(elections);
+      }else{
+        cb(false);
+      }
+    });
+  },
 };
 

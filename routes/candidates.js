@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var CandidatesMgr = require("../controller/candidates");
+var ElectionMgr = require("../controller/elections");
+var AttachmentsMgr = require("../controller/attachments");
+var CompetitionsMgr = require("../controller/competitions");
 var userHelpers = require("../controller/userHelpers");
 
 
@@ -27,6 +30,21 @@ router.put('/edit/:id',userHelpers.isLogin,function(req, res) {
   });
 });
 
+router.get('/getAttachment', userHelpers.isLogin,function(req, res){
+  ElectionMgr.getLastElection(function(election){
+    AttachmentsMgr.getAttachmentElection(election._id,function(attachments){
+      res.send(attachments);
+    });
+  });
+});
+
+router.get('/getCompetition', userHelpers.isLogin,function(req, res){
+  ElectionMgr.getLastElection(function(election){
+    CompetitionsMgr.getCompetitionsElection(election._id,function(competitions){
+      res.send(competitions);
+    });
+  });
+});
 // /* Delete Candidates by id  */
 // router.delete('/delete/:id',userHelpers.isAdmin,userHelpers.isLogin , function(req, res) {
 //   CandidatesMgr.deleteCandidate(req.params.id,function(Candidate){
@@ -48,5 +66,8 @@ router.get('/:id',userHelpers.isLogin , function(req, res) {
     res.send(Candidate);
   });
 });
+
+
+
 
 module.exports = router;
