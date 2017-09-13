@@ -1,12 +1,12 @@
-var mongoose = require('mongoose');
-var timestamps = require('mongoose-timestamp');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const timestamps = require('mongoose-timestamp');
+const Schema = mongoose.Schema;
 
-var Competition = new Schema({
-  name: { type: String},
-  election :{type: Schema.Types.ObjectId , ref: 'Election'}
+const Competition = new Schema({
+  name: { type: String },
+  election: { type: Schema.Types.ObjectId, ref: 'Election' }
 });
 
 Competition.plugin(timestamps);
-Competition.index({ name: 'text'});
+Competition.index({ name: 'text' });
 exports.Competition = mongoose.model('Competition', Competition);

@@ -14,8 +14,8 @@ const index = require('./routes/index');
 const users = require('./routes/users');
 var candidates = require('./routes/candidates');
 var elections = require('./routes/elections');
-var competitions =require('./routes/competitions');
-var attachments =require('./routes/attachments');
+var competitions = require('./routes/competitions');
+var attachments = require('./routes/attachments');
 
 const app = express();
 

@@ -7,32 +7,27 @@
         newCandidate: function(newElection) {
           var promise = $http
             .post('/candidates/', newElection)
-
             .then(function(response) {
               return response;
             });
           return promise;
         },
-        getAttachment : function() {
+        getAttachment: function() {
           var promise = $http
-            .get(
-              '/candidates/getAttachment'
-            )
+            .get('/candidates/getAttachment')
             .then(function(response) {
               return response;
             });
           return promise;
         },
-        getCompetition : function() {
+        getCompetition: function() {
           var promise = $http
-            .get(
-              '/candidates/getCompetition'
-            )
+            .get('/candidates/getCompetition')
             .then(function(response) {
               return response;
             });
           return promise;
-        },
+        }
       };
       return self;
     }

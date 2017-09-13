@@ -1,53 +1,53 @@
-var model = require("../models");
+var model = require('../models');
 var attachment = null;
 module.exports = {
-
-
-  newAttachment : function(body,cb){
+  newAttachment: function(body, cb) {
     var obj = body;
-    model.Elections.findOne().sort({_id: -1}).exec(function(err,elections){
-      if(!err){        
-        if(elections != null){
-          obj['election']=elections._id;
+    model.Elections.findOne().sort({ _id: -1 }).exec(function(err, elections) {
+      if (!err) {
+        if (elections != null) {
+          obj['election'] = elections._id;
           attachment = new model.Attachment(obj);
-          attachment.save(function(err){
+          attachment.save(function(err) {
             if (!err) {
-              cb({result:true,err:0});
+              cb({ result: true, err: 0 });
             } else {
               // console.log(err);
-              cb({result:false,err:2});
+              cb({ result: false, err: 2 });
             }
           });
-        }else{
-          cb({result:false,err:3});
+        } else {
+          cb({ result: false, err: 3 });
         }
-        
-      }else{
+      } else {
         // console.log(err);
-        cb({result:false,err:1});
+        cb({ result: false, err: 1 });
       }
     });
-    
   },
-  getAllAttachment :function(limit,page,cb){
+  getAllAttachment: function(limit, page, cb) {
     page = parseInt(page);
-    page-=1;
+    page -= 1;
     limit = parseInt(limit);
-    var q= {};
-    model.Attachment.count(q,function(err, count){
-      model.Attachment.find(q).limit(limit).skip(page*limit).exec(function(err,attachments){
-        if(!err){
-          cb({result:attachments,count:count});
-        }else{
-          // console.log(err);
-          cb(null);
-        }
-      });
+    var q = {};
+    model.Attachment.count(q, function(err, count) {
+      model.Attachment
+        .find(q)
+        .limit(limit)
+        .skip(page * limit)
+        .exec(function(err, attachments) {
+          if (!err) {
+            cb({ result: attachments, count: count });
+          } else {
+            // console.log(err);
+            cb(null);
+          }
+        });
     });
   },
-  updateAttachment : function(id,body,cb){
+  updateAttachment: function(id, body, cb) {
     var obj = body;
-    model.Attachment.findOneAndUpdate({_id:id}, obj, function(err) {
+    model.Attachment.findOneAndUpdate({ _id: id }, obj, function(err) {
       if (!err) {
         cb(true);
       } else {
@@ -56,23 +56,22 @@ module.exports = {
       }
     });
   },
-  getAttachmentId :function(id,cb){
-    model.Attachment.findOne({_id : id}, function(err, result){
-      if(!err){
+  getAttachmentId: function(id, cb) {
+    model.Attachment.findOne({ _id: id }, function(err, result) {
+      if (!err) {
         cb(result);
-      }else{
+      } else {
         cb(null);
       }
     });
   },
-  getAttachmentElection :function(id,cb){
-    model.Attachment.find({election : id}, function(err, result){
-      if(!err){
+  getAttachmentElection: function(id, cb) {
+    model.Attachment.find({ election: id }, function(err, result) {
+      if (!err) {
         cb(result);
-      }else{
+      } else {
         cb(null);
       }
     });
-  },
+  }
 };
-

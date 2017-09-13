@@ -1,46 +1,42 @@
-var express = require('express');
-var router = express.Router();
-var CandidatesMgr = require("../controller/candidates");
-var ElectionMgr = require("../controller/elections");
-var AttachmentsMgr = require("../controller/attachments");
-var CompetitionsMgr = require("../controller/competitions");
-var userHelpers = require("../controller/userHelpers");
+const express = require('express');
+const router = express.Router();
+const CandidatesMgr = require('../controller/candidates');
+const ElectionMgr = require('../controller/elections');
+const AttachmentsMgr = require('../controller/attachments');
+const CompetitionsMgr = require('../controller/competitions');
+const userHelpers = require('../controller/userHelpers');
 
-
-
-
-
-router.get('/all', userHelpers.isLogin,function(req, res){
-  CandidatesMgr.getAllCandidates(function(Candidates){
+router.get('/all', userHelpers.isLogin, (req, res) => {
+  CandidatesMgr.getAllCandidates(Candidates => {
     res.send(Candidates);
   });
 });
 
 /* Add new Candidates  */
-router.post('/add',userHelpers.isLogin,function(req, res) {
-  CandidatesMgr.addCandidate(req.body,function(newCandidate){
+router.post('/add', userHelpers.isLogin, (req, res) => {
+  CandidatesMgr.addCandidate(req.body, newCandidate => {
     res.send(newCandidate);
   });
 });
 
 // /* Edit Candidates by id  */
-router.put('/edit/:id',userHelpers.isLogin,function(req, res) {
-  CandidatesMgr.updateCandidate(req.params.id,req.body,function(returnCandidate){
+router.put('/edit/:id', userHelpers.isLogin, (req, res) => {
+  CandidatesMgr.updateCandidate(req.params.id, req.body, returnCandidate => {
     res.send(returnCandidate);
   });
 });
 
-router.get('/getAttachment', userHelpers.isLogin,function(req, res){
-  ElectionMgr.getLastElection(function(election){
-    AttachmentsMgr.getAttachmentElection(election._id,function(attachments){
+router.get('/getAttachment', userHelpers.isLogin, (req, res) => {
+  ElectionMgr.getLastElection(function(election) {
+    AttachmentsMgr.getAttachmentElection(election._id, attachments => {
       res.send(attachments);
     });
   });
 });
 
-router.get('/getCompetition', userHelpers.isLogin,function(req, res){
-  ElectionMgr.getLastElection(function(election){
-    CompetitionsMgr.getCompetitionsElection(election._id,function(competitions){
+router.get('/getCompetition', userHelpers.isLogin, (req, res) => {
+  ElectionMgr.getLastElection(function(election) {
+    CompetitionsMgr.getCompetitionsElection(election._id, competitions => {
       res.send(competitions);
     });
   });
@@ -53,21 +49,24 @@ router.get('/getCompetition', userHelpers.isLogin,function(req, res){
 // });
 
 // /*GET all Candidates By Search Value*/
-router.get('/:searchValue/:limit/:page',userHelpers.isLogin , function(req, res) {
-  CandidatesMgr.getAllCandidatesBySearchValue(-1,-1,req.params.searchValue,req.params.limit,req.params.page,function(Candidates){
-    res.send(Candidates);
-  });
+router.get('/:searchValue/:limit/:page', userHelpers.isLogin, (req, res) => {
+  CandidatesMgr.getAllCandidatesBySearchValue(
+    -1,
+    -1,
+    req.params.searchValue,
+    req.params.limit,
+    req.params.page,
+    function(Candidates) {
+      res.send(Candidates);
+    }
+  );
 });
 
-
 // /* GET Candidates by ID  */
-router.get('/:id',userHelpers.isLogin , function(req, res) {
-  CandidatesMgr.getCandidateId(req.params.id,function(Candidate){
+router.get('/:id', userHelpers.isLogin, (req, res) => {
+  CandidatesMgr.getCandidateId(req.params.id, Candidate => {
     res.send(Candidate);
   });
 });
-
-
-
 
 module.exports = router;

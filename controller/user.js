@@ -1,45 +1,48 @@
 var generatePassword = require('password-generator'),
-    easyPbkdf2 = require("easy-pbkdf2")(),
-    user = null;
-var model = require("../models");
-
+  easyPbkdf2 = require('easy-pbkdf2')(),
+  user = null;
+var model = require('../models');
 
 module.exports = {
-  getAllUser :function(limit,page,cb){
+  getAllUser: function(limit, page, cb) {
     page = parseInt(page);
-    page-=1;
+    page -= 1;
     limit = parseInt(limit);
-    model.User.count({},function(err,count){
-      model.User.find({}).limit(limit).skip(page*limit).exec(function(err, users){
-        if(!err){
-          cb({result:users,count:count});
-        }else{
-          console.log(err);
-          cb(null);
-        }
-      });
+    model.User.count({}, function(err, count) {
+      model.User
+        .find({})
+        .limit(limit)
+        .skip(page * limit)
+        .exec(function(err, users) {
+          if (!err) {
+            cb({ result: users, count: count });
+          } else {
+            console.log(err);
+            cb(null);
+          }
+        });
     });
   },
 
-  getUser :function(username,cb){
-    model.User.findOne({email : username}, function(err, user){
-      if(!err){
+  getUser: function(username, cb) {
+    model.User.findOne({ email: username }, function(err, user) {
+      if (!err) {
         cb(user);
-      }else{
+      } else {
         cb(null);
       }
     });
   },
 
-  getUserId :function(id,cb){
-    model.User.findOne({_id : id}, function(err, user){
-      if(!err){
+  getUserId: function(id, cb) {
+    model.User.findOne({ _id: id }, function(err, user) {
+      if (!err) {
         cb(user);
-      }else{
+      } else {
         cb(null);
       }
     });
-  },
+  }
   /* here we add a new user to the system */
   // register: function (body, cb) {
   //   var salt = easyPbkdf2.generateSalt(); //we generate a new salt for every new user
@@ -70,9 +73,6 @@ module.exports = {
   //   });
   // },
 
-
-
-
   // deleteUser : function(id,cb){
   //   model.User.remove({_id:id}, function(err,result) {
   //     if (!err) {
@@ -84,7 +84,6 @@ module.exports = {
   //   });
 
   // },
-
 
   // updateUser : function(id,body,cb){
   //   var salt = easyPbkdf2.generateSalt(); //we generate a new salt for every new user
@@ -137,9 +136,4 @@ module.exports = {
   //     });
   //   });
   // },
-
-  
 };
-
-
-

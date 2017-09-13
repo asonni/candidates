@@ -1,7 +1,6 @@
 (function() {
   'use strict';
   var app = angular.module('candidates');
-  // competitions
   app.controller('competitionsCtrl', [
     '$scope',
     '$modal',
@@ -65,7 +64,7 @@
                 toastr.success('تم الإضافة بنجاح');
                 $scope.refreshCompetitions();
               }, 1000);
-            } else if(response.data.err==3){
+            } else if (response.data.err == 3) {
               $scope.newCompetitionModal.hide();
               $scope.laddaStatus = false;
               toastr.error('خطأ الرجاء ادخال إنتخبات ');

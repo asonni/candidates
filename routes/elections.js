@@ -1,36 +1,28 @@
-var express = require('express');
-var router = express.Router();
-var ElectionMgr = require("../controller/elections");
-var userHelpers = require("../controller/userHelpers");
+const express = require('express');
+const router = express.Router();
+const ElectionMgr = require('../controller/elections');
+const userHelpers = require('../controller/userHelpers');
 
-
-
-
-
-
-router.post('/',userHelpers.isLogin,function(req, res) {
-  ElectionMgr.newElection(req.body,function(newElection){
+router.post('/', userHelpers.isLogin, (req, res) => {
+  ElectionMgr.newElection(req.body, newElection => {
     res.send(newElection);
   });
 });
 
-router.put('/:id',userHelpers.isLogin,function(req, res) {
-  ElectionMgr.updateElection(req.params.id,req.body,function(elections){
+router.put('/:id', userHelpers.isLogin, (req, res) => {
+  ElectionMgr.updateElection(req.params.id, req.body, elections => {
     res.send(elections);
   });
 });
 
-
-
-router.get('/:limit/:page',userHelpers.isLogin , function(req, res) {
-  ElectionMgr.getAllElection(req.params.limit,req.params.page,function(elections){
+router.get('/:limit/:page', userHelpers.isLogin, (req, res) => {
+  ElectionMgr.getAllElection(req.params.limit, req.params.page, elections => {
     res.send(elections);
   });
 });
 
-
-router.get('/:id',userHelpers.isLogin , function(req, res) {
-  ElectionMgr.getCandidateId(req.params.id,function(Candidate){
+router.get('/:id', userHelpers.isLogin, (req, res) => {
+  ElectionMgr.getCandidateId(req.params.id, Candidate => {
     res.send(Candidate);
   });
 });
