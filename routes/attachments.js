@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var AttachmentsMgr = require('../controller/attachments');
-var userHelpers = require('../controller/userHelpers');
+const express = require('express');
+const router = express.Router();
+const AttachmentsMgr = require('../controller/attachments');
+const userHelpers = require('../controller/userHelpers');
 
 router.post('/', userHelpers.isLogin, (req, res) => {
   AttachmentsMgr.newAttachment(req.body, newAttachment => {

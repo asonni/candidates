@@ -12,14 +12,14 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const config = require('./config');
 const index = require('./routes/index');
 const users = require('./routes/users');
-var candidates = require('./routes/candidates');
-var elections = require('./routes/elections');
-var competitions = require('./routes/competitions');
-var attachments = require('./routes/attachments');
+const candidates = require('./routes/candidates');
+const elections = require('./routes/elections');
+const competitions = require('./routes/competitions');
+const attachments = require('./routes/attachments');
 
 const app = express();
 
-var store = new MongoDBStore({
+const store = new MongoDBStore({
   uri: 'mongodb://localhost:27017/candidates',
   collection: 'mySessions'
 });
@@ -66,7 +66,7 @@ app.use('/attachments', attachments);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  var err = new Error('Not Found');
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
@@ -76,7 +76,6 @@ app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
   // render the error page
   res.status(err.status || 500);
   res.render('error');

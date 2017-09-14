@@ -4,9 +4,9 @@
     '$http',
     function($http) {
       var self = {
-        newCandidate: function(newElection) {
+        newCandidate: function(newCandidate) {
           var promise = $http
-            .post('/candidates/', newElection)
+            .post('/candidates/', newCandidate)
             .then(function(response) {
               return response;
             });

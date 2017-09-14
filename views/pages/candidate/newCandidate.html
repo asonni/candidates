@@ -124,6 +124,28 @@
       <hr>
       المرفقات
       <hr>
+      <div class="row">
+        <div class="col-md-8">
+          <ul class="list-group">
+            <li class="list-group-item" ng-repeat="attachment in attachments">
+              <div class="checkbox form-group">
+                <label class="control-label">
+                  <input type="checkbox" ng-model="newCandidateForm.attachments[attachment._id]" disable-valid-styling="true">
+                  <span class="cr pull-right"><i class="cr-icon fa fa-check"></i></span>
+                  &nbsp;
+                  {{attachment.name}}
+                </label>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group text-center">
+            <label class="control-label">رقم حساب الدعاية الانتخابية</label>
+            <input class="form-control input-sm placeholder-center" type="text" ng-model="newCandidateForm.account_number" placeholder="رقم حساب الدعاية الانتخابية" ng-required="required">
+          </div>
+        </div>
+      </div>
       <hr>
       <div class="row btn-footer">
         <div class="col-xs-6 col-md-2 col-md-offset-4">

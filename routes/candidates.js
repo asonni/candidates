@@ -6,14 +6,14 @@ const AttachmentsMgr = require('../controller/attachments');
 const CompetitionsMgr = require('../controller/competitions');
 const userHelpers = require('../controller/userHelpers');
 
-router.get('/all', userHelpers.isLogin, (req, res) => {
+router.get('/', userHelpers.isLogin, (req, res) => {
   CandidatesMgr.getAllCandidates(Candidates => {
     res.send(Candidates);
   });
 });
 
 /* Add new Candidates  */
-router.post('/add', userHelpers.isLogin, (req, res) => {
+router.post('/', userHelpers.isLogin, (req, res) => {
   CandidatesMgr.addCandidate(req.body, newCandidate => {
     res.send(newCandidate);
   });
