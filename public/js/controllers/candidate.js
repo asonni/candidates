@@ -1,7 +1,37 @@
 (function() {
   'use strict';
   var app = angular.module('candidates');
-  app.controller('candidatesCtrl', ['$scope', function($scope) {}]);
+  app.controller('candidatesCtrl', [
+    '$scope',
+    '$modal',
+    '$state',
+    '$timeout',
+    'toastr',
+    'candidateService',
+    function($scope, $modal, $state, $timeout, toastr, candidateService) {
+      $scope.pageSize = 10;
+      $scope.currentPage = 1;
+      $scope.total = 0;
+      $scope.init = function (election,office,searchValue) {
+        if( searchValue === 'undefined' || !searchValue ){
+          searchValue = " ";
+        }
+        if( election === 'undefined' ){
+          election = -1;
+        }
+        if( office === 'undefined' ){
+          office = -1;
+        }
+        candidateService.getCandidates(election,office,searchValue,$scope.pageSize,$scope.currentPage).then(function(response) {
+          $scope.candidates = response.data.result;
+          $scope.total = response.data.count;
+        }, function(response) {
+          console.log("Something went wrong");
+        });
+      };
+      $scope.init(-1,-1,"");
+    }
+  ]);
 
   app.controller('newCandidateCtrl', [
     '$scope',
@@ -22,7 +52,6 @@
           function(response) {
             if (response.status == 200) {
               $scope.attachments = response.data;
-              console.log($scope.attachments);
             } else {
               toastr.error('يوجد خطأ في ');
             }
@@ -52,7 +81,10 @@
       $scope.getCompetition();
       $scope.newCandidate = function() {
         $scope.laddaStatus = true;
-        attachmentService.newCandidate($scope.newCandidateForm).then(
+        $scope.newCandidateForm.attachment = $.map($scope.newCandidateForm.attachment, function(value, index) {
+            return [index];
+        });
+        candidateService.newCandidate($scope.newCandidateForm).then(
           function(response) {
             if (!response.data.err && response.status == 200) {
               $timeout(function() {

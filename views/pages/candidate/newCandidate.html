@@ -75,13 +75,16 @@
         <div class="col-md-3 col-md-offset-3">
           <div class="form-group">
             <label class="control-label">اسم اﻷم الثلاتي</label>
-            <input class="form-control input-sm" type="text" ng-model="newCandidateForm.gender" placeholder="اسم اﻷم الثلاتي" ng-required="required">
+            <input class="form-control input-sm" type="text" ng-model="newCandidateForm.mother_name" placeholder="اسم اﻷم الثلاتي" ng-required="required">
           </div>
         </div>
         <div class="col-md-3">
           <div class="form-group">
             <label class="control-label">نمط التنافس</label>
-            <input class="form-control input-sm" type="text" ng-model="newCandidateForm.competition" placeholder="نمط التنافس" ng-required="required">
+            <select class="form-control input-sm" ng-model="newCandidateForm.competition" ng-options="competition._id as competition.name for competition in competitions"  required>
+              <option value="" disabled selected>الرجاء الاختيار</option>
+            </select>
+            <!-- <input class="form-control input-sm" type="text" ng-model="newCandidateForm.competition" placeholder="نمط التنافس" ng-required="required"> -->
           </div>
         </div>
       </div>
@@ -109,7 +112,13 @@
         <div class="col-md-3">
           <div class="form-group">
             <label class="control-label">المؤهل العلمي</label>
-            <input class="form-control input-sm" type="text" ng-model="newCandidateForm.qualification" placeholder="نوع المؤهل العلمي" ng-required="unrequired">
+            <select class="form-control input-sm" ng-model="newCandidateForm.qualification"  required>
+              <option value="" disabled selected>الرجاء الاختيار</option>
+              <option value="1" >درجة البكالوريوس</option>
+              <option value="2" >درجة الماجستير</option>
+              <option value="3" >درجة الدكتوراه</option>
+            </select>
+            <!-- <input class="form-control input-sm" type="text" ng-model="newCandidateForm.qualification" placeholder="نوع المؤهل العلمي" ng-required="unrequired"> -->
           </div>
         </div>
       </div>
@@ -130,7 +139,7 @@
             <li class="list-group-item" ng-repeat="attachment in attachments">
               <div class="checkbox form-group">
                 <label class="control-label">
-                  <input type="checkbox" ng-model="newCandidateForm.attachments[attachment._id]" disable-valid-styling="true">
+                  <input type="checkbox" ng-model="newCandidateForm.attachment[attachment._id]" disable-valid-styling="true">
                   <span class="cr pull-right"><i class="cr-icon fa fa-check"></i></span>
                   &nbsp;
                   {{attachment.name}}

@@ -29,7 +29,7 @@ module.exports = {
       if (!err) {
         cb(true);
       } else {
-        // console.log(err);
+        console.log(err);
         cb(false);
       }
     });
@@ -45,17 +45,13 @@ module.exports = {
       }
     });
   },
-  getAllCandidatesBySearchValue: function(
-    election,
-    office,
-    searchValue,
-    limit,
-    page,
-    cb
-  ) {
+  getAllCandidatesBySearchValue: function(election,office,searchValue,limit,page,cb) {
     page = parseInt(page);
     page -= 1;
     limit = parseInt(limit);
+    if(searchValue == ' ' ){
+      searchValue='';
+    } 
     var q = {
       status: 1,
       $or: [

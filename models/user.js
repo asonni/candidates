@@ -11,7 +11,7 @@ const User = new Schema({
     type: String,
     default: 'NULL'
   },
-  office: { type: Number },
+  office: { type: Schema.Types.ObjectId, ref: 'Office' },
   level: { type: Number, default: 1 },
   status: { type: Number, default: 1 }
 });

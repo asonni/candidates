@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 
 const Competition = new Schema({
   name: { type: String },
-  election: { type: Schema.Types.ObjectId, ref: 'Election' }
+  election: { type: Schema.Types.ObjectId, ref: 'Election' },
+  status: {type: Number, default:1}
 });
 
 Competition.plugin(timestamps);

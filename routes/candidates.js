@@ -49,10 +49,10 @@ router.get('/getCompetition', userHelpers.isLogin, (req, res) => {
 // });
 
 // /*GET all Candidates By Search Value*/
-router.get('/:searchValue/:limit/:page', userHelpers.isLogin, (req, res) => {
+router.get('/get/:election/:office/:searchValue/:limit/:page', userHelpers.isLogin, (req, res) => {
   CandidatesMgr.getAllCandidatesBySearchValue(
-    -1,
-    -1,
+    req.params.election,
+    req.params.office,
     req.params.searchValue,
     req.params.limit,
     req.params.page,

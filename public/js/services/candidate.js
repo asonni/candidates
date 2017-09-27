@@ -4,6 +4,14 @@
     '$http',
     function($http) {
       var self = {
+        getCandidates: function(election,office,searchValue,limit,page) {
+          var promise = $http
+            .get('/candidates/get/'+election+'/'+office+'/'+searchValue+'/'+limit+'/'+page)
+            .then(function(response) {
+              return response;
+            });
+          return promise;
+        },
         newCandidate: function(newCandidate) {
           var promise = $http
             .post('/candidates/', newCandidate)
