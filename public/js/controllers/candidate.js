@@ -12,24 +12,35 @@
       $scope.pageSize = 10;
       $scope.currentPage = 1;
       $scope.total = 0;
-      $scope.init = function (election,office,searchValue) {
-        if( searchValue === 'undefined' || !searchValue ){
-          searchValue = " ";
+      $scope.init = function(election, office, searchValue) {
+        if (searchValue === 'undefined' || !searchValue) {
+          searchValue = ' ';
         }
-        if( election === 'undefined' ){
+        if (election === 'undefined') {
           election = -1;
         }
-        if( office === 'undefined' ){
+        if (office === 'undefined') {
           office = -1;
         }
-        candidateService.getCandidates(election,office,searchValue,$scope.pageSize,$scope.currentPage).then(function(response) {
-          $scope.candidates = response.data.result;
-          $scope.total = response.data.count;
-        }, function(response) {
-          console.log("Something went wrong");
-        });
+        candidateService
+          .getCandidates(
+            election,
+            office,
+            searchValue,
+            $scope.pageSize,
+            $scope.currentPage
+          )
+          .then(
+            function(response) {
+              $scope.candidates = response.data.result;
+              $scope.total = response.data.count;
+            },
+            function(response) {
+              console.log('Something went wrong');
+            }
+          );
       };
-      $scope.init(-1,-1,"");
+      $scope.init(-1, -1, '');
     }
   ]);
 
@@ -47,6 +58,11 @@
       $scope.competitions = [];
       $scope.genderTypes = [{ id: 1, name: 'ذكر' }, { id: 2, name: 'انتى' }];
       $scope.newCandidateForm = {};
+      $scope.qualifications = [
+        { id: 1, name: 'درجة البكالوريوس' },
+        { id: 2, name: 'درجة الماجستير' },
+        { id: 3, name: 'درجة الدكتوراه' }
+      ];
       $scope.getAttachment = function() {
         candidateService.getAttachment().then(
           function(response) {
@@ -81,9 +97,12 @@
       $scope.getCompetition();
       $scope.newCandidate = function() {
         $scope.laddaStatus = true;
-        $scope.newCandidateForm.attachment = $.map($scope.newCandidateForm.attachment, function(value, index) {
+        $scope.newCandidateForm.attachment = $.map(
+          $scope.newCandidateForm.attachment,
+          function(value, index) {
             return [index];
-        });
+          }
+        );
         candidateService.newCandidate($scope.newCandidateForm).then(
           function(response) {
             if (!response.data.err && response.status == 200) {
