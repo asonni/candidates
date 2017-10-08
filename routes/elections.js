@@ -3,6 +3,13 @@ const router = express.Router();
 const ElectionMgr = require('../controller/elections');
 const userHelpers = require('../controller/userHelpers');
 
+
+
+router.get('/', userHelpers.isLogin, (req, res) => {
+  ElectionMgr.getElection( elections => {
+    res.send(elections);
+  });
+});
 router.post('/', userHelpers.isLogin, (req, res) => {
   ElectionMgr.newElection(req.body, newElection => {
     res.send(newElection);

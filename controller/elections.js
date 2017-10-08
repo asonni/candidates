@@ -14,6 +14,16 @@ module.exports = {
       }
     });
   },
+  getElection: function( cb) {
+    model.Elections.find({}).exec(function(err, elections) {
+      if (!err) {
+        cb(elections);
+      } else {
+        // console.log(err);
+        cb(null);
+      }
+    });
+  },
   getAllElection: function(limit, page, cb) {
     page = parseInt(page);
     page -= 1;
