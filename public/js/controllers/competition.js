@@ -47,7 +47,6 @@
       $scope.getAllElections = function() {
         competitionService.fetchAllElections().then(
           function(response) {
-            console.log(response);
             if (response.status == 200) {
               $scope.elections = response.data;
             } else {
@@ -64,6 +63,10 @@
       };
 
       $scope.getAllElections();
+
+      $scope.onSelectElection = function(selectedElection) {
+        console.log(selectedElection);
+      };
 
       $scope.showNewCompetitionModal = function() {
         $scope.modalTitle = 'إضافة نمط تنافسي جديد';

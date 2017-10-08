@@ -4,15 +4,13 @@
       <div class="col-md-3">
         <h3 class="panel-title">انماط التنافس</h3>
       </div>
-      <div class="col-md-6">
-        <form class="input-group">
-          <input type="text" class="form-control input-sm" placeholder="بحث..." autofocus />
-          <span class="input-group-btn">
-            <select class="form-control input-sm" ng-model="selectedElection" ng-options="election._id as election.name for election in elections" ng-required="nonrequired">
-              <option value="" selected>عرض الكل</option>
-            </select>
-          </span>
-        </form>
+      <div class="col-md-4">
+        <input type="text" class="form-control input-sm" placeholder="بحث..." autofocus />
+      </div>
+      <div class="col-md-2">
+        <select class="form-control input-sm" ng-model="selectedElection" ng-change="onSelectElection(selectedElection)" ng-options="election._id as election.name for election in elections" ng-required="nonrequired">
+          <option value="" selected>عرض الكل</option>
+        </select>
       </div>
       <div class="col-md-3 text-left">
         <button class="btn btn-primary btn-sm" ng-click="showNewCompetitionModal()">

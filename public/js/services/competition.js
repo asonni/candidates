@@ -58,7 +58,7 @@
           return promise;
         },
         fetchAllElections: function() {
-          var promise = $http.get('/elections/all').then(function(response) {
+          var promise = $http.get('/elections').then(function(response) {
             return response;
           });
           return promise;
