@@ -65,7 +65,29 @@
       $scope.getAllElections();
 
       $scope.onSelectElection = function(selectedElection) {
-        console.log(selectedElection);
+        if(selectedElection == null){
+          selectedElection = -1;
+        }
+        competitionService.search(selectedElection,$scope.pageSize, $scope.currentPage)
+          .then(
+            function(response) {
+              if (response.status == 200) {
+                $scope.competitions = response.data.result;
+                $scope.total = response.data.count;
+              } else {
+                toastr.error(
+                  'يوجد خطأ في عرض انماط التنافس, الرجاء المحاولة لاحقا'
+                );
+              }
+            },
+            function(response) {
+              toastr.error(
+                'يوجد خطأ في عرض انماط التنافس, الرجاء الاتصال بمشرف المنظومة'
+              );
+              console.log('Something went wrong ' + response.data);
+            }
+          );
+
       };
 
       $scope.showNewCompetitionModal = function() {

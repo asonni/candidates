@@ -14,7 +14,11 @@ router.put('/:id', userHelpers.isLogin, (req, res) => {
     res.send(competitions);
   });
 });
-
+router.get('/search/:election/:limit/:page', userHelpers.isLogin, (req, res) => {
+  CompetitionsMgr.searchCompetition(req.params.election,req.params.limit,req.params.page,competitions => {
+    res.send(competitions);
+  });
+});
 router.get('/:limit/:page', userHelpers.isLogin, (req, res) => {
   CompetitionsMgr.getAllCompetition(
     req.params.limit,
