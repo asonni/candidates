@@ -17,6 +17,7 @@
       $scope.competitions = [];
       $scope.newCompetitionForm = {};
       $scope.editCompetitionForm = {};
+      $scope.elections = [];
 
       $scope.refreshCompetitions = function() {
         competitionService
@@ -42,6 +43,27 @@
       };
 
       $scope.refreshCompetitions();
+
+      $scope.getAllElections = function() {
+        competitionService.fetchAllElections().then(
+          function(response) {
+            console.log(response);
+            if (response.status == 200) {
+              $scope.elections = response.data;
+            } else {
+              toastr.error('يوجد خطأ في عرض الانتخابات, الرجاء المحاولة لاحقا');
+            }
+          },
+          function(response) {
+            toastr.error(
+              'يوجد خطأ في عرض الانتخابات, الرجاء الاتصال بمشرف المنظومة'
+            );
+            console.log('Something went wrong ' + response.data);
+          }
+        );
+      };
+
+      $scope.getAllElections();
 
       $scope.showNewCompetitionModal = function() {
         $scope.modalTitle = 'إضافة نمط تنافسي جديد';
