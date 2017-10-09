@@ -41,6 +41,30 @@
 
       $scope.refreshAttachments();
 
+      $scope.getAllElections = function() {
+        attachmentService.fetchAllElections().then(
+          function(response) {
+            if (response.status == 200) {
+              $scope.elections = response.data;
+            } else {
+              toastr.error('يوجد خطأ في عرض الانتخابات, الرجاء المحاولة لاحقا');
+            }
+          },
+          function(response) {
+            toastr.error(
+              'يوجد خطأ في عرض الانتخابات, الرجاء الاتصال بمشرف المنظومة'
+            );
+            console.log('Something went wrong ' + response.data);
+          }
+        );
+      };
+
+      $scope.getAllElections();
+
+      $scope.onSelectElection = function(selectedElection) {
+        console.log(selectedElection);
+      };
+
       $scope.showNewAttachmentModal = function() {
         $scope.modalTitle = 'إضافة مرفق جديد';
         $scope.newAttachmentModal = $modal({

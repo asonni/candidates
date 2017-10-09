@@ -51,6 +51,12 @@
             return response;
           });
           return promise;
+        },
+        fetchAllElections: function() {
+          var promise = $http.get('/elections').then(function(response) {
+            return response;
+          });
+          return promise;
         }
       };
       return self;
