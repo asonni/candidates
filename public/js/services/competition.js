@@ -12,15 +12,9 @@
             });
           return promise;
         },
-        search: function(election, limit, page) {
+        searchElection: function(election, limit, page) {
           var promise = $http
-            .get(
-              '/competitions/search/' +election+
-                '/' +
-                limit +
-                '/' +
-                page
-            )
+            .get('/competitions/search/' + election + '/' + limit + '/' + page)
             .then(function(response) {
               return response;
             });
