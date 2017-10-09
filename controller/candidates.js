@@ -11,14 +11,24 @@ module.exports = {
       }
     });
   },
-  getAllCandidates: function(cb) {
-    model.Candidates.find(function(err, candidates) {
-      if (!err) {
-        cb(candidates);
-      } else {
-        // console.log(err);
-        cb(null);
-      }
+  getAllCandidates: function(limit,page,cb) {
+    page = parseInt(page);
+    page -= 1;
+    limit = parseInt(limit);
+    var q = {};
+    model.Candidates.count(q, function(err, count) {
+      model.Candidates
+        .find(q)
+        .limit(limit)
+        .skip(page * limit)
+        .exec(function(err, candidates) {
+          if (!err) {
+            cb({ result: candidates, count: count });
+          } else {
+            // console.log(err);
+            cb(null);
+          }
+        });
     });
   },
 
