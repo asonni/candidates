@@ -46,6 +46,33 @@ module.exports = {
         });
     });
   },
+  searchCompetition: function(election,limit, page, cb) {
+    page = parseInt(page);
+    page -= 1;
+    limit = parseInt(limit);
+    if(election != -1){
+      var q ={
+        election:election
+      };
+    }else{
+      var q = {};  
+    }
+    
+    model.Competition.count(q, function(err, count) {
+      model.Competition
+        .find(q)
+        .limit(limit)
+        .skip(page * limit)
+        .exec(function(err, competitions) {
+          if (!err) {
+            cb({ result: competitions, count: count });
+          } else {
+            // console.log(err);
+            cb(null);
+          }
+        });
+    });
+  },
   updateCompetition: function(id, body, cb) {
     var obj = body;
     model.Competition.findOneAndUpdate({ _id: id }, obj, function(err) {

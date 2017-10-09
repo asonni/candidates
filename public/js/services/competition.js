@@ -12,11 +12,10 @@
             });
           return promise;
         },
-        search: function(competitionName, limit, page) {
+        search: function(election, limit, page) {
           var promise = $http
             .get(
-              '/competitions/search/' +
-                competitionName +
+              '/competitions/search/' +election+
                 '/' +
                 limit +
                 '/' +
