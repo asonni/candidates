@@ -12,35 +12,46 @@
       $scope.pageSize = 10;
       $scope.currentPage = 1;
       $scope.total = 0;
-      $scope.init = function(election, office, searchValue) {
-        if (searchValue === 'undefined' || !searchValue) {
-          searchValue = ' ';
-        }
-        if (election === 'undefined') {
-          election = -1;
-        }
-        if (office === 'undefined') {
-          office = -1;
-        }
-        candidateService
-          .getCandidates(
-            election,
-            office,
-            searchValue,
-            $scope.pageSize,
-            $scope.currentPage
-          )
-          .then(
-            function(response) {
-              $scope.candidates = response.data.result;
-              $scope.total = response.data.count;
-            },
-            function(response) {
-              console.log('Something went wrong');
-            }
-          );
+      // $scope.init = function(election, office, searchValue) {
+      //   if (searchValue === 'undefined' || !searchValue) {
+      //     searchValue = ' ';
+      //   }
+      //   if (election === 'undefined') {
+      //     election = -1;
+      //   }
+      //   if (office === 'undefined') {
+      //     office = -1;
+      //   }
+      //   candidateService
+      //     .getCandidates(
+      //       election,
+      //       office,
+      //       searchValue,
+      //       $scope.pageSize,
+      //       $scope.currentPage
+      //     )
+      //     .then(
+      //       function(response) {
+      //         $scope.candidates = response.data.result;
+      //         $scope.total = response.data.count;
+      //       },
+      //       function(response) {
+      //         console.log('Something went wrong');
+      //       }
+      //     );
+      // };
+      // $scope.init(-1, -1, '');
+      $scope.init = function() {
+        candidateService.getCandidates().then(function(response) {
+          $scope.candidates = response.data.result;
+          $scope.total = response.data.count;
+        },
+          function(response) {
+            console.log('Something went wrong');
+          }
+        );
       };
-      $scope.init(-1, -1, '');
+      $scope.init();
     }
   ]);
 

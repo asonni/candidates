@@ -62,7 +62,29 @@
       $scope.getAllElections();
 
       $scope.onSelectElection = function(selectedElection) {
-        console.log(selectedElection);
+        if (selectedElection == null) {
+          selectedElection = -1;
+        }
+        attachmentService
+          .searchElection(selectedElection, $scope.pageSize, $scope.currentPage)
+          .then(
+            function(response) {
+              if (response.status == 200) {
+                $scope.attachments = response.data.result;
+                $scope.total = response.data.count;
+              } else {
+                toastr.error(
+                  'يوجد خطأ في عرض انماط التنافس, الرجاء المحاولة لاحقا'
+                );
+              }
+            },
+            function(response) {
+              toastr.error(
+                'يوجد خطأ في عرض انماط التنافس, الرجاء الاتصال بمشرف المنظومة'
+              );
+              console.log('Something went wrong ' + response.data);
+            }
+          );
       };
 
       $scope.showNewAttachmentModal = function() {

@@ -65,6 +65,33 @@ module.exports = {
       }
     });
   },
+  searchAttachment: function(election,limit, page, cb) {
+    page = parseInt(page);
+    page -= 1;
+    limit = parseInt(limit);
+    if(election != -1){
+      var q ={
+        election:election
+      };
+    }else{
+      var q = {};  
+    }
+    
+    model.Attachment.count(q, function(err, count) {
+      model.Attachment
+        .find(q)
+        .limit(limit)
+        .skip(page * limit)
+        .exec(function(err, Attachment) {
+          if (!err) {
+            cb({ result: Attachment, count: count });
+          } else {
+            // console.log(err);
+            cb(null);
+          }
+        });
+    });
+  },
   getAttachmentElection: function(id, cb) {
     model.Attachment.find({ election: id }, function(err, result) {
       if (!err) {

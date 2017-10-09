@@ -4,9 +4,17 @@
     '$http',
     function($http) {
       var self = {
-        getCandidates: function(election,office,searchValue,limit,page) {
+        // getCandidates: function(election,office,searchValue,limit,page) {
+        //   var promise = $http
+        //     .get('/candidates/get/'+election+'/'+office+'/'+searchValue+'/'+limit+'/'+page)
+        //     .then(function(response) {
+        //       return response;
+        //     });
+        //   return promise;
+        // },
+        getCandidates: function(limit,page) {
           var promise = $http
-            .get('/candidates/get/'+election+'/'+office+'/'+searchValue+'/'+limit+'/'+page)
+            .get('/candidates/'+limit+'/'+page)
             .then(function(response) {
               return response;
             });

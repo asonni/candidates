@@ -12,11 +12,9 @@
             });
           return promise;
         },
-        search: function(attachmentName, limit, page) {
+        searchElection: function(election, limit, page) {
           var promise = $http
-            .get(
-              '/attachments/search/' + attachmentName + '/' + limit + '/' + page
-            )
+            .get('/attachments/search/' + election + '/' + limit + '/' + page)
             .then(function(response) {
               return response;
             });

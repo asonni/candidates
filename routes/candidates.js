@@ -6,8 +6,8 @@ const AttachmentsMgr = require('../controller/attachments');
 const CompetitionsMgr = require('../controller/competitions');
 const userHelpers = require('../controller/userHelpers');
 
-router.get('/', userHelpers.isLogin, (req, res) => {
-  CandidatesMgr.getAllCandidates(Candidates => {
+router.get('/:limit/:page', userHelpers.isLogin, (req, res) => {
+  CandidatesMgr.getAllCandidates(req.params.limit,req.params.page,Candidates => {
     res.send(Candidates);
   });
 });
