@@ -65,10 +65,11 @@
       $scope.getAllElections();
 
       $scope.onSelectElection = function(selectedElection) {
-        if(selectedElection == null){
+        if (selectedElection == null) {
           selectedElection = -1;
         }
-        competitionService.search(selectedElection,$scope.pageSize, $scope.currentPage)
+        competitionService
+          .searchElection(selectedElection, $scope.pageSize, $scope.currentPage)
           .then(
             function(response) {
               if (response.status == 200) {
@@ -87,7 +88,6 @@
               console.log('Something went wrong ' + response.data);
             }
           );
-
       };
 
       $scope.showNewCompetitionModal = function() {
