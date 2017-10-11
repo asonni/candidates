@@ -9,10 +9,23 @@
     'toastr',
     'candidateService',
     function($scope, $modal, $state, $timeout, toastr, candidateService) {
+      $scope.required = true;
+      $scope.unrequited = false;
+      $scope.laddaAdvancedSearchModal = false;
       $scope.pageSize = 10;
       $scope.currentPage = 1;
       $scope.total = 0;
       $scope.candidates = [];
+      $scope.competitions = [];
+      $scope.elections = [];
+      $scope.advancedSearchObj = {};
+      $scope.advancedSearchObj.selectedElection = null;
+      $scope.genderTypes = [{ id: 1, name: 'ذكر' }, { id: 2, name: 'انتى' }];
+      $scope.qualifications = [
+        { id: 1, name: 'درجة البكالوريوس' },
+        { id: 2, name: 'درجة الماجستير' },
+        { id: 3, name: 'درجة الدكتوراه' }
+      ];
       // $scope.init = function(election, office, searchValue) {
       //   if (searchValue === 'undefined' || !searchValue) {
       //     searchValue = ' ';
@@ -63,8 +76,75 @@
             }
           );
       };
-
       $scope.refreshCandidates();
+
+      $scope.getAttachment = function() {
+        candidateService.getAttachment().then(
+          function(response) {
+            if (response.status == 200) {
+              $scope.attachments = response.data;
+            } else {
+              toastr.error('يوجد خطأ في ');
+            }
+          },
+          function(response) {
+            toastr.error('يوجد خطأ في ');
+            console.log('Something went wrong ' + response.data);
+          }
+        );
+      };
+      $scope.getAttachment();
+
+      $scope.getCompetition = function() {
+        candidateService.getCompetition().then(
+          function(response) {
+            if (response.status == 200) {
+              $scope.competitions = response.data;
+            } else {
+              toastr.error('يوجد خطأ في ');
+            }
+          },
+          function(response) {
+            toastr.error('يوجد خطأ في ');
+            console.log('Something went wrong ' + response.data);
+          }
+        );
+      };
+      $scope.getCompetition();
+
+      $scope.getAllElections = function() {
+        candidateService.fetchAllElections().then(
+          function(response) {
+            if (response.status == 200) {
+              $scope.elections = response.data;
+            } else {
+              toastr.error('يوجد خطأ في عرض الانتخابات, الرجاء المحاولة لاحقا');
+            }
+          },
+          function(response) {
+            toastr.error(
+              'يوجد خطأ في عرض الانتخابات, الرجاء الاتصال بمشرف المنظومة'
+            );
+            console.log('Something went wrong ' + response.data);
+          }
+        );
+      };
+
+      $scope.getAllElections();
+
+      $scope.showAdvancedSearchModal = function() {
+        $scope.advancedSearchModal = $modal({
+          scope: $scope,
+          templateUrl: 'pages/candidate/advancedSearch.html',
+          show: true
+        });
+      };
+
+      $scope.onAdvancedSearch = function() {
+        $scope.laddaAdvancedSearchModal = true;
+        $scope.advancedSearchModal.hide();
+        console.log($scope.advancedSearchObj);
+      };
     }
   ]);
 

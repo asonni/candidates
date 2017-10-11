@@ -1,0 +1,128 @@
+<div id="advancedSearchModal" class="modal" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="$hide()">&times;</button>
+        <h4 class="modal-title">بحث متقدم</h4>
+      </div>
+      <form novalidate ng-submit="onAdvancedSearch()">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="control-label">الرقم الوطني</label>
+                <input class="form-control input-sm" type="text" ng-model="advancedSearchObj.nid" placeholder="الرقم الوطني" autofocus ng-required="unrequited">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="control-label">رقم كتيب العائلة</label>
+                <input class="form-control input-sm" type="text" ng-model="advancedSearchObj.cra" placeholder="رقم كتيب العائلة" ng-required="unrequited">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="control-label">الاسم</label>
+                <input class="form-control input-sm" type="text" ng-model="advancedSearchObj.f_name" placeholder="الاسم" ng-required="unrequited">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="control-label">اسم اﻷب</label>
+                <input class="form-control input-sm" type="text" ng-model="advancedSearchObj.p_name" placeholder="اسم اﻷب" ng-required="unrequited">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="control-label">اسم الجد</label>
+                <input class="form-control input-sm" type="text" ng-model="advancedSearchObj.g_name" placeholder="اسم الجد" ng-required="unrequited">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="control-label">اللقب</label>
+                <input class="form-control input-sm" type="text" ng-model="advancedSearchObj.l_name" placeholder="اللقب" ng-required="unrequited">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="control-label">الجنس</label>
+                <select class="form-control input-sm" ng-model="advancedSearchObj.gender" ng-options="genderType.id as genderType.name for genderType in genderTypes | orderBy:'id'" ng-required="unrequited">
+                  <option value="" disabled selected>الرجاء الاختيار</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="control-label">تاريخ الميلاد</label>
+                <input class="form-control input-sm" type="text" ng-model="advancedSearchObj.birth_day" data-autoclose="1" bs-datepicker placeholder="تاريخ الميلاد" ng-required="unrequited">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="control-label">اسم اﻷم الثلاتي</label>
+                <input class="form-control input-sm" type="text" ng-model="advancedSearchObj.mother_name" placeholder="اسم اﻷم الثلاتي" ng-required="unrequited">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="control-label">نمط التنافس</label>
+                <select class="form-control input-sm" ng-model="advancedSearchObj.competition" ng-options="competition._id as competition.name for competition in competitions" ng-required="unrequited">
+                  <option value="" disabled selected>الرجاء الاختيار</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="control-label">الهاتف النقال</label>
+                <input class="form-control input-sm" type="text" ng-model="advancedSearchObj.phone" placeholder="الهاتف النقال" ng-required="unrequited">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="control-label">الهاتف اﻷرضي</label>
+                <input class="form-control input-sm" type="text" ng-model="advancedSearchObj.work_phone" placeholder="الهاتف اﻷرضي" ng-required="unrequited">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="control-label">البريد اﻹلكتروني</label>
+                <input class="form-control input-sm" type="text" ng-model="advancedSearchObj.email" placeholder="البريد اﻹلكتروني" ng-required="unrequited">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="control-label">المؤهل العلمي</label>
+                <select class="form-control input-sm" ng-model="advancedSearchObj.qualification" ng-options="qualify.id as qualify.name for qualify in qualifications" ng-required="unrequited">
+                  <option value="" disabled selected>الرجاء الاختيار</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="control-label">التخصص</label>
+                <input class="form-control input-sm" type="text" ng-model="advancedSearchObj.specialty" placeholder="التخصص" ng-required="unrequited">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="control-label">رقم حساب الدعاية الانتخابية</label>
+                <input class="form-control input-sm placeholder-center" type="text" ng-model="advancedSearchObj.account_number" placeholder="رقم حساب الدعاية الانتخابية" ng-required="unrequited">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default btn-sm" ng-click="advancedSearchModal.hide()"><i class="fa fa-ban" aria-hidden="true"></i></i>&nbsp;الغاء</button>
+          <button type="submit" class="btn btn-primary btn-sm" ladda="laddaAdvancedSearchModal"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;بحث</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
