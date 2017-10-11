@@ -12,6 +12,7 @@
       $scope.pageSize = 10;
       $scope.currentPage = 1;
       $scope.total = 0;
+      $scope.candidates = [];
       // $scope.init = function(election, office, searchValue) {
       //   if (searchValue === 'undefined' || !searchValue) {
       //     searchValue = ' ';
@@ -41,17 +42,29 @@
       //     );
       // };
       // $scope.init(-1, -1, '');
-      $scope.init = function() {
-        candidateService.getCandidates().then(function(response) {
-          $scope.candidates = response.data.result;
-          $scope.total = response.data.count;
-        },
-          function(response) {
-            console.log('Something went wrong');
-          }
-        );
+
+      $scope.refreshCandidates = function() {
+        candidateService
+          .fetchCandidates($scope.pageSize, $scope.currentPage)
+          .then(
+            function(response) {
+              if (response.status == 200) {
+                $scope.candidates = response.data.result;
+                $scope.total = response.data.count;
+              } else {
+                toastr.error('يوجد خطأ في عرض المرشحين, الرجاء الاتصال لاحقا');
+              }
+            },
+            function(response) {
+              toastr.error(
+                'يوجد خطأ في عرض المرشحين, الرجاء الاتصال بمشرف المنضومة'
+              );
+              console.log('Something went wrong ' + response.data);
+            }
+          );
       };
-      $scope.init();
+
+      $scope.refreshCandidates();
     }
   ]);
 

@@ -1,0 +1,83 @@
+<div class="aside" tabindex="-1" role="dialog">
+  <div class="aside-dialog">
+    <div class="aside-content">
+      <div class="aside-header">
+        <button type="button" class="close" ng-click="$hide()">&times;</button>
+        <h4 class="aside-title">
+          عرض المزيد
+        </h4>
+      </div>
+      <div class="aside-body">
+        <ul class="list-group">
+          <li class="list-group-item text-center">
+            <strong>
+              معلومات المترشح
+            </strong>
+          </li>
+          <li class="list-group-item">
+            <strong>
+            الرقم الوطني
+            </strong>
+            <div class="pull-left">
+              {{candidate.nid}}
+            </div>
+          </li>
+          <li class="list-group-item">
+            <strong>
+              رقم كتيب العائلة
+            </strong>
+            <div class="pull-left">
+              {{candidate.cra}}
+            </div>
+          </li>
+          <li class="list-group-item">
+            <strong>
+              الاسم الرباعي
+            </strong>
+            <div class="pull-left">
+              {{candidate.f_name+' '+candidate.p_name+' '+candidate.g_name+' '+candidate.l_name}}
+            </div>
+          </li>
+          <li class="list-group-item">
+            <strong>
+              اسم اﻷم الثلاثي
+            </strong>
+            <div class="pull-left">
+              {{candidate.mother_name}}
+            </div>
+          </li>
+          <li class="list-group-item">
+            <strong>
+              الجنس
+            </strong>
+            <div class="pull-left">
+              {{candidate.gender === 1 ? 'ذكر' : 'انتي'}}
+            </div>
+          </li>
+          <li class="list-group-item">
+            <strong>
+              تاريخ الميلاد
+            </strong>
+            <div class="pull-left">
+              {{candidate.birth_day | date}}
+            </div>
+          </li>
+          <li class="list-group-item">
+            <strong>
+              الهاتف النقال
+            </strong>
+            <div class="pull-left">
+              {{candidate.phone}}
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="aside-footer">
+        <button type="button" class="btn btn-sm btn-default pull-left" ng-click="$hide()">
+          <i class="fa fa-times" aria-hidden="true"></i>
+          إغلاق
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

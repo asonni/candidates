@@ -34,6 +34,7 @@
     "animate.css": "^3.5.2",
     "angular-auto-validate": "^1.19.6",
     "ng-remote-validate": "^0.6.1",
-    "pdfmake": "^0.1.31"
+    "pdfmake": "^0.1.31",
+    "bootstrap-additions": "^0.3.1"
   }
 }
