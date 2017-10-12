@@ -12,9 +12,9 @@
         //     });
         //   return promise;
         // },
-        getCandidates: function(limit,page) {
+        fetchCandidates: function(limit, page) {
           var promise = $http
-            .get('/candidates/'+limit+'/'+page)
+            .get('/candidates/' + limit + '/' + page)
             .then(function(response) {
               return response;
             });
@@ -50,6 +50,12 @@
             .then(function(response) {
               return response;
             });
+          return promise;
+        },
+        fetchAllElections: function() {
+          var promise = $http.get('/elections').then(function(response) {
+            return response;
+          });
           return promise;
         }
       };

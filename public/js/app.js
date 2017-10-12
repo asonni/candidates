@@ -5,6 +5,7 @@
     'ui.bootstrap',
     'oc.lazyLoad',
     'ngSanitize',
+    'ngAnimate',
     'mgcrea.ngStrap',
     'jcs-autoValidate',
     'toastr',
@@ -43,12 +44,16 @@
     '$stateProvider',
     '$urlRouterProvider',
     '$modalProvider',
+    '$datepickerProvider',
+    '$asideProvider',
     'laddaProvider',
     'toastrConfig',
     function(
       $stateProvider,
       $urlRouterProvider,
       $modalProvider,
+      $datepickerProvider,
+      $asideProvider,
       laddaProvider,
       toastrConfig
     ) {
@@ -64,6 +69,19 @@
       });
       angular.extend($modalProvider.defaults, {
         animation: 'animated zoomIn'
+      });
+      angular.extend($datepickerProvider.defaults, {
+        dateFormat: 'yyyy-MM-dd',
+        startWeek: -1,
+        dateType: 'string',
+        iconLeft: 'glyphicon glyphicon-chevron-right',
+        iconRight: 'glyphicon glyphicon-chevron-left',
+        placement: 'bottom',
+        animation: 'animated fadeIn'
+      });
+      angular.extend($asideProvider.defaults, {
+        container: 'body',
+        html: true
       });
       // Redirect any unmatched url
       $urlRouterProvider.otherwise('/candidates');
