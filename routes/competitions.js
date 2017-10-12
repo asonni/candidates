@@ -4,9 +4,14 @@ const CompetitionsMgr = require('../controller/competitions');
 const userHelpers = require('../controller/userHelpers');
 
 router.post('/', userHelpers.isLogin, (req, res) => {
-  CompetitionsMgr.newCompetition(req.body, newCompetition => {
-    res.send(newCompetition);
-  });
+  if(userHelpers.isName(req.body.name)){
+    CompetitionsMgr.newCompetition(req.body, newCompetition => {
+      res.send(newCompetition);
+    });
+  }else{
+    res.send({ result: false, err: 4 });
+  }
+  
 });
 
 router.put('/:id', userHelpers.isLogin, (req, res) => {

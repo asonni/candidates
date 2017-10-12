@@ -69,11 +69,24 @@
       $scope.competitions = [];
       $scope.genderTypes = [{ id: 1, name: 'ذكر' }, { id: 2, name: 'انتى' }];
       $scope.newCandidateForm = {};
-      $scope.qualifications = [
-        { id: 1, name: 'درجة البكالوريوس' },
-        { id: 2, name: 'درجة الماجستير' },
-        { id: 3, name: 'درجة الدكتوراه' }
-      ];
+      // $scope.qualifications = [
+      //   { id: 1, name: 'درجة البكالوريوس' },
+      //   { id: 2, name: 'درجة الماجستير' },
+      //   { id: 3, name: 'درجة الدكتوراه' }
+      // ];
+      candidateService.getQualification().then(
+          function(response) {
+            if (response.status == 200) {
+              $scope.qualifications = response.data;
+            } else {
+              toastr.error('يوجد خطأ في ');
+            }
+          },
+          function(response) {
+            toastr.error('يوجد خطأ في ');
+            console.log('Something went wrong ' + response.data);
+          }
+        );
       $scope.getAttachment = function() {
         candidateService.getAttachment().then(
           function(response) {

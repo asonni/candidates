@@ -20,6 +20,14 @@
             });
           return promise;
         },
+        getQualification: function() {
+          var promise = $http
+            .get('/qualifications')
+            .then(function(response) {
+              return response;
+            });
+          return promise;
+        },
         newCandidate: function(newCandidate) {
           var promise = $http
             .post('/candidates/', newCandidate)

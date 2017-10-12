@@ -7,10 +7,10 @@ module.exports = {
     election = new model.Elections(obj);
     election.save(function(err) {
       if (!err) {
-        cb(true);
+        cb({ result: true, err: 0 });
       } else {
         // console.log(err);
-        cb(false);
+        cb({ result: false, err: 2 });
       }
     });
   },

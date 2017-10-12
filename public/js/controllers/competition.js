@@ -115,7 +115,11 @@
               $scope.newCompetitionModal.hide();
               $scope.laddaStatus = false;
               toastr.error('خطأ الرجاء ادخال إنتخبات ');
-            } else {
+            } else if (response.data.err == 4) {
+              $scope.newAttachmentModal.hide();
+              $scope.laddaStatus = false;
+              toastr.error('خطأ الرجاء ادخال البيانات بالشكل الصحيح ');
+            }else {
               $scope.newCompetitionModal.hide();
               $scope.laddaStatus = false;
               toastr.error('خطأ في عملية الادخال, الرجاء اعادة المحاولة');

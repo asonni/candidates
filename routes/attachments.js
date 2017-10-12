@@ -4,9 +4,13 @@ const AttachmentsMgr = require('../controller/attachments');
 const userHelpers = require('../controller/userHelpers');
 
 router.post('/', userHelpers.isLogin, (req, res) => {
-  AttachmentsMgr.newAttachment(req.body, newAttachment => {
-    res.send(newAttachment);
-  });
+  if(userHelpers.isName(req.body.name)){
+    AttachmentsMgr.newAttachment(req.body, newAttachment => {
+      res.send(newAttachment);
+    });
+  }else{
+    res.send({ result: false, err: 4 });
+  }  
 });
 
 router.get('/search/:election/:limit/:page', userHelpers.isLogin, (req, res) => {

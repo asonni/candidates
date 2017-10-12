@@ -112,7 +112,7 @@
         <div class="col-md-3">
           <div class="form-group">
             <label class="control-label">المؤهل العلمي</label>
-            <select class="form-control input-sm" ng-model="newCandidateForm.qualification" ng-options="qualify._id as qualify.name for qualify in qualifications" ng-required="required">
+            <select class="form-control input-sm" ng-model="newCandidateForm.qualification" ng-options="qualify.id as qualify.name for qualify in qualifications" ng-required="required">
               <option value="" disabled selected>الرجاء الاختيار</option>
             </select>
             <!-- <input class="form-control input-sm" type="text" ng-model="newCandidateForm.qualification" placeholder="نوع المؤهل العلمي" ng-required="unrequired"> -->

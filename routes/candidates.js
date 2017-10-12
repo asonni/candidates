@@ -5,7 +5,7 @@ const ElectionMgr = require('../controller/elections');
 const AttachmentsMgr = require('../controller/attachments');
 const CompetitionsMgr = require('../controller/competitions');
 const userHelpers = require('../controller/userHelpers');
-
+var validator = require('validator');
 router.get('/:limit/:page', userHelpers.isLogin, (req, res) => {
   CandidatesMgr.getAllCandidates(req.params.limit,req.params.page,Candidates => {
     res.send(Candidates);
@@ -14,6 +14,7 @@ router.get('/:limit/:page', userHelpers.isLogin, (req, res) => {
 
 /* Add new Candidates  */
 router.post('/', userHelpers.isLogin, (req, res) => {
+  console.log(req.body)
   CandidatesMgr.addCandidate(req.body, newCandidate => {
     res.send(newCandidate);
   });
@@ -35,6 +36,7 @@ router.get('/getAttachment', userHelpers.isLogin, (req, res) => {
 });
 
 router.get('/getCompetition', userHelpers.isLogin, (req, res) => {
+  console.log(userHelpers.isG('7'));
   ElectionMgr.getLastElection(function(election) {
     CompetitionsMgr.getCompetitionsElection(election._id, competitions => {
       res.send(competitions);

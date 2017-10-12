@@ -1,8 +1,12 @@
 const express = require('express');
 const router = express.Router();
-
+const qualifications = require('../qualifications')
 router.get('/', (req, res, next) => {
   res.render('login');
+});
+
+router.get('/qualifications', (req, res, next) => {
+  res.send(qualifications);
 });
 
 router.get('/home', (req, res, next) => {

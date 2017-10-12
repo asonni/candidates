@@ -11,9 +11,14 @@ router.get('/', userHelpers.isLogin, (req, res) => {
   });
 });
 router.post('/', userHelpers.isLogin, (req, res) => {
-  ElectionMgr.newElection(req.body, newElection => {
-    res.send(newElection);
-  });
+  if(userHelpers.isName(req.body.name)){
+    ElectionMgr.newElection(req.body, newElection => {
+      res.send(newElection);
+    });
+  }else{
+    res.send({ result: false, err: 1 });
+  }
+  
 });
 
 router.put('/:id', userHelpers.isLogin, (req, res) => {
