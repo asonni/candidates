@@ -14,10 +14,14 @@ router.get('/:limit/:page', userHelpers.isLogin, (req, res) => {
 
 /* Add new Candidates  */
 router.post('/', userHelpers.isLogin, (req, res) => {
-  console.log(req.body)
-  CandidatesMgr.addCandidate(req.body, newCandidate => {
-    res.send(newCandidate);
-  });
+  if(userHelpers.isForm(req.body)){
+    CandidatesMgr.addCandidate(req.body, newCandidate => {
+      res.send(newCandidate);
+    });
+  }else{
+    res.send({ result: false, err: 4 });
+  }
+  
 });
 
 // /* Edit Candidates by id  */
@@ -36,7 +40,6 @@ router.get('/getAttachment', userHelpers.isLogin, (req, res) => {
 });
 
 router.get('/getCompetition', userHelpers.isLogin, (req, res) => {
-  console.log(userHelpers.isG('7'));
   ElectionMgr.getLastElection(function(election) {
     CompetitionsMgr.getCompetitionsElection(election._id, competitions => {
       res.send(competitions);
