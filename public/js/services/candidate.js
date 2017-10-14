@@ -4,14 +4,14 @@
     '$http',
     function($http) {
       var self = {
-        // getCandidates: function(election,office,searchValue,limit,page) {
-        //   var promise = $http
-        //     .get('/candidates/get/'+election+'/'+office+'/'+searchValue+'/'+limit+'/'+page)
-        //     .then(function(response) {
-        //       return response;
-        //     });
-        //   return promise;
-        // },
+        getAllCandidatesBySearchValue: function(searchValue,limit,page) {
+          var promise = $http
+            .post('/candidates/get'+'/'+limit+'/'+page,searchValue)
+            .then(function(response) {
+              return response;
+            });
+          return promise;
+        },
         fetchCandidates: function(limit, page) {
           var promise = $http
             .get('/candidates/' + limit + '/' + page)

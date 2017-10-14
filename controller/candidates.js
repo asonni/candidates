@@ -55,27 +55,66 @@ module.exports = {
       }
     });
   },
-  getAllCandidatesBySearchValue: function(election,office,searchValue,limit,page,cb) {
+  getAllCandidatesBySearchValue: function(body,limit,page,cb) {
     page = parseInt(page);
     page -= 1;
     limit = parseInt(limit);
-    if(searchValue == ' ' ){
-      searchValue='';
-    } 
-    var q = {
+    q = {
       status: 1,
-      $or: [
-        { f_name: new RegExp(searchValue, 'i') },
-        { p_name: new RegExp(searchValue, 'i') },
-        { g_name: new RegExp(searchValue, 'i') },
-        { l_name: new RegExp(searchValue, 'i') }
-      ]
     };
-    if (election != -1) {
-      q.election = election;
+    if(body.nid ){
+      q.nid= new RegExp(body.nid, 'i')
     }
-    if (office != -1) {
-      q.office = office;
+    if(body.cra ){
+      q.cra= new RegExp(body.cra, 'i')
+    }
+    if(body.f_name ){
+      q.f_name= new RegExp(body.f_name, 'i')
+    }
+    if(body.p_name ){
+      q.p_name= new RegExp(body.p_name, 'i')
+    }
+    if(body.g_name ){
+      q.g_name= new RegExp(body.g_name, 'i')
+    }
+    if(body.l_name ){
+      q.l_name= new RegExp(body.l_name, 'i')
+    }
+    if(body.mother_name ){
+      q.mother_name= new RegExp(body.mother_name, 'i')
+    }
+    if(body.gender ){
+      q.gender=body.gender
+    }
+    if(body.birth_day ){
+      q.birth_day= body.birth_day
+    }
+    if(body.competition ){
+      q.competition= body.competition
+    }
+    if(body.phone ){
+      q.phone= body.phone
+    }
+    if(body.work_phone ){
+      q.work_phone= body.work_phone
+    }
+    if(body.email ){
+      q.email= body.email
+    }
+    if(body.cra ){
+      q.cra= new RegExp(body.cra, 'i')
+    }
+    if(body.qualification ){
+      q.qualification= body.qualification
+    }
+    if(body.specialty ){
+      q.specialty= body.specialty
+    }
+    if(body.account_number ){
+      q.account_number= body.account_number
+    }
+    if(body.selectedElection ){
+      q.election= body.selectedElection
     }
     model.Candidates.count(q, function(err, count) {
       model.Candidates

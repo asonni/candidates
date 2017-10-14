@@ -23,6 +23,7 @@ const Candidates = new Schema({
   center :{ type: Schema.Types.ObjectId, ref: 'Center' },
   attachment: [{type: Schema.Types.ObjectId, ref: 'Attachment' }],
   competition: { type: Schema.Types.ObjectId, ref: 'Competition' },
+  election: { type: Schema.Types.ObjectId, ref: 'Election' },
   status: {type: Number, default:1}
 });
 

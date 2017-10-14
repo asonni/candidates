@@ -58,7 +58,6 @@ function isCra (cra){
   return validator.isInt(cra,[{ min: 1, max: 12 }])
 }
 function isPhone (phone){
-  console.log("im in ph")
   return validator.isInt(phone,[{ min: 9, max: 12 }])
 }
 function isG (g){

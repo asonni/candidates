@@ -21,41 +21,19 @@
       $scope.advancedSearchObj = {};
       $scope.advancedSearchObj.selectedElection = null;
       $scope.genderTypes = [{ id: 1, name: 'ذكر' }, { id: 2, name: 'انتى' }];
-      $scope.qualifications = [
-        { id: 1, name: 'درجة البكالوريوس' },
-        { id: 2, name: 'درجة الماجستير' },
-        { id: 3, name: 'درجة الدكتوراه' }
-      ];
-      // $scope.init = function(election, office, searchValue) {
-      //   if (searchValue === 'undefined' || !searchValue) {
-      //     searchValue = ' ';
-      //   }
-      //   if (election === 'undefined') {
-      //     election = -1;
-      //   }
-      //   if (office === 'undefined') {
-      //     office = -1;
-      //   }
-      //   candidateService
-      //     .getCandidates(
-      //       election,
-      //       office,
-      //       searchValue,
-      //       $scope.pageSize,
-      //       $scope.currentPage
-      //     )
-      //     .then(
-      //       function(response) {
-      //         $scope.candidates = response.data.result;
-      //         $scope.total = response.data.count;
-      //       },
-      //       function(response) {
-      //         console.log('Something went wrong');
-      //       }
-      //     );
-      // };
-      // $scope.init(-1, -1, '');
-
+      candidateService.getQualification().then(
+          function(response) {
+            if (response.status == 200) {
+              $scope.qualifications = response.data;
+            } else {
+              toastr.error('يوجد خطأ في ');
+            }
+          },
+          function(response) {
+            toastr.error('يوجد خطأ في ');
+            console.log('Something went wrong ' + response.data);
+          }
+        );
       $scope.refreshCandidates = function() {
         candidateService
           .fetchCandidates($scope.pageSize, $scope.currentPage)
@@ -142,8 +120,17 @@
 
       $scope.onAdvancedSearch = function() {
         $scope.laddaAdvancedSearchModal = true;
-        $scope.advancedSearchModal.hide();
-        console.log($scope.advancedSearchObj);
+        if($scope.advancedSearchModal){
+          $scope.advancedSearchModal.hide();
+        }
+        candidateService.getAllCandidatesBySearchValue($scope.advancedSearchObj,$scope.pageSize,$scope.currentPage).then(function(response) {
+          $scope.candidates = response.data.result;
+          $scope.total = response.data.count; 
+        },
+          function(response) {
+            console.log('Something went wrong');
+          }
+        );
       };
     }
   ]);
