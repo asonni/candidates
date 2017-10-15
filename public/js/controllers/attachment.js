@@ -61,12 +61,15 @@
 
       $scope.getAllElections();
 
-      $scope.onSelectElection = function(selectedElection) {
+      $scope.onSelectElection = function(selectedElection,text) {
         if (selectedElection == null) {
           selectedElection = -1;
         }
+        if (text == undefined || text == '') {
+          text = -1;
+        }
         attachmentService
-          .searchElection(selectedElection, $scope.pageSize, $scope.currentPage)
+          .searchElection(selectedElection,text, $scope.pageSize, $scope.currentPage)
           .then(
             function(response) {
               if (response.status == 200) {

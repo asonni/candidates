@@ -13,8 +13,8 @@ router.post('/', userHelpers.isLogin, (req, res) => {
   }  
 });
 
-router.get('/search/:election/:limit/:page', userHelpers.isLogin, (req, res) => {
-  AttachmentsMgr.searchAttachment(req.params.election,req.params.limit,req.params.page,competitions => {
+router.get('/search/:election/:text/:limit/:page', userHelpers.isLogin, (req, res) => {
+  AttachmentsMgr.searchAttachment(req.params.election,req.params.text,req.params.limit,req.params.page,competitions => {
     res.send(competitions);
   });
 });

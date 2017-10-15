@@ -46,7 +46,7 @@ module.exports = {
         });
     });
   },
-  searchCompetition: function(election,limit, page, cb) {
+  searchCompetition: function(election,text,limit, page, cb) {
     page = parseInt(page);
     page -= 1;
     limit = parseInt(limit);
@@ -57,7 +57,9 @@ module.exports = {
     }else{
       var q = {};  
     }
-    
+    if(parseFloat(text) != -1 && text !=' '){
+      q.name =new RegExp(text, 'i');
+    }
     model.Competition.count(q, function(err, count) {
       model.Competition
         .find(q)

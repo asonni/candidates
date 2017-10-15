@@ -65,7 +65,7 @@ module.exports = {
       }
     });
   },
-  searchAttachment: function(election,limit, page, cb) {
+  searchAttachment: function(election,text,limit, page, cb) {
     page = parseInt(page);
     page -= 1;
     limit = parseInt(limit);
@@ -76,7 +76,9 @@ module.exports = {
     }else{
       var q = {};  
     }
-    
+    if(parseFloat(text) != -1 && text !=' '){
+      q.name =new RegExp(text, 'i');
+    }
     model.Attachment.count(q, function(err, count) {
       model.Attachment
         .find(q)

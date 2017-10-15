@@ -5,10 +5,10 @@
         <h3 class="panel-title">المرفقات</h3>
       </div>
       <div class="col-md-4">
-        <input type="text" class="form-control input-sm" placeholder="بحث..." autofocus />
+        <input type="text" class="form-control input-sm" ng-model="searchText" ng-keyup="onSelectElection(selectedElection,searchText)" placeholder="بحث..." autofocus />
       </div>
       <div class="col-md-2">
-        <select class="form-control input-sm" ng-model="selectedElection" ng-change="onSelectElection(selectedElection)" ng-options="election._id as election.name for election in elections" ng-required="nonrequired">
+        <select class="form-control input-sm" ng-model="selectedElection" ng-change="onSelectElection(selectedElection,searchText)" ng-options="election._id as election.name for election in elections" ng-required="nonrequired">
           <option value="" selected>عرض الكل</option>
         </select>
       </div>
