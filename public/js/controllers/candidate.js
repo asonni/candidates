@@ -22,18 +22,18 @@
       $scope.advancedSearchObj.selectedElection = null;
       $scope.genderTypes = [{ id: 1, name: 'ذكر' }, { id: 2, name: 'انتى' }];
       candidateService.getQualification().then(
-          function(response) {
-            if (response.status == 200) {
-              $scope.qualifications = response.data;
-            } else {
-              toastr.error('يوجد خطأ في ');
-            }
-          },
-          function(response) {
+        function(response) {
+          if (response.status == 200) {
+            $scope.qualifications = response.data;
+          } else {
             toastr.error('يوجد خطأ في ');
-            console.log('Something went wrong ' + response.data);
           }
-        );
+        },
+        function(response) {
+          toastr.error('يوجد خطأ في ');
+          console.log('Something went wrong ' + response.data);
+        }
+      );
       $scope.refreshCandidates = function() {
         candidateService
           .fetchCandidates($scope.pageSize, $scope.currentPage)
@@ -120,17 +120,26 @@
 
       $scope.onAdvancedSearch = function() {
         $scope.laddaAdvancedSearchModal = true;
-        if($scope.advancedSearchModal){
+        if ($scope.advancedSearchModal) {
           $scope.advancedSearchModal.hide();
         }
-        candidateService.getAllCandidatesBySearchValue($scope.advancedSearchObj,$scope.pageSize,$scope.currentPage).then(function(response) {
-          $scope.candidates = response.data.result;
-          $scope.total = response.data.count; 
-        },
-          function(response) {
-            console.log('Something went wrong');
-          }
-        );
+        candidateService
+          .getAllCandidatesBySearchValue(
+            $scope.advancedSearchObj,
+            $scope.pageSize,
+            $scope.currentPage
+          )
+          .then(
+            function(response) {
+              $scope.candidates = response.data.result;
+              $scope.total = response.data.count;
+              $scope.laddaAdvancedSearchModal = false;
+            },
+            function(response) {
+              console.log('Something went wrong');
+              $scope.laddaAdvancedSearchModal = false;
+            }
+          );
       };
     }
   ]);
@@ -155,18 +164,18 @@
       //   { id: 3, name: 'درجة الدكتوراه' }
       // ];
       candidateService.getQualification().then(
-          function(response) {
-            if (response.status == 200) {
-              $scope.qualifications = response.data;
-            } else {
-              toastr.error('يوجد خطأ في ');
-            }
-          },
-          function(response) {
+        function(response) {
+          if (response.status == 200) {
+            $scope.qualifications = response.data;
+          } else {
             toastr.error('يوجد خطأ في ');
-            console.log('Something went wrong ' + response.data);
           }
-        );
+        },
+        function(response) {
+          toastr.error('يوجد خطأ في ');
+          console.log('Something went wrong ' + response.data);
+        }
+      );
       $scope.getAttachment = function() {
         candidateService.getAttachment().then(
           function(response) {
@@ -222,7 +231,7 @@
             } else if (response.data.err == 4) {
               $scope.laddaStatus = false;
               toastr.error('خطأ الرجاء ادخال البيانات بالشكل الصحيح ');
-            }else {
+            } else {
               $scope.laddaStatus = false;
               toastr.error('خطأ في عملية الادخال, الرجاء اعادة المحاولة');
             }

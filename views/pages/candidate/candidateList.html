@@ -4,13 +4,15 @@
       <div class="col-md-3">
         <h3 class="panel-title">المرشحين</h3>
       </div>
-      <div class="col-md-4">
-        <input type="text" class="form-control input-sm" placeholder="بحث..." autofocus />
-      </div>
-      <div class="col-md-2">
-        <select class="form-control input-sm" ng-model="advancedSearchObj.selectedElection" ng-change="onAdvancedSearch()" ng-options="election._id as election.name for election in elections" ng-required="nonrequired">
-          <option value="" selected>عرض الكل</option>
-        </select>
+      <div class="col-md-6 text-center">
+        <form class="form-inline">
+          <div class="form-group">
+            <label>عـــرض</label>
+            <select class="form-control input-sm" ng-model="advancedSearchObj.selectedElection" ng-change="onAdvancedSearch()" ng-options="election._id as election.name for election in elections" ng-required="nonrequired" disable-valid-styling="true">
+              <option value="" selected>الكل</option>
+            </select>
+          </div>
+        </form>
       </div>
       <div class="col-md-3 text-left">
         <button class="btn btn-primary btn-sm" ng-click="showAdvancedSearchModal()">بحث متقدم</button>

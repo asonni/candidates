@@ -18,6 +18,7 @@ body {
   font-family: 'JFFlat', sans-serif;
   font-size: 15px;
   /*font-weight: 500;*/
+  overflow-y: scroll;
 }
 .logo {
   width: 185px;
