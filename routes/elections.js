@@ -38,5 +38,9 @@ router.get('/:id', userHelpers.isLogin, (req, res) => {
     res.send(Candidate);
   });
 });
-
+router.delete('/:id',userHelpers.isLogin ,  (req, res) => {
+  ElectionMgr.deleteElection(req.params.id,elections => {
+    res.send(elections);
+  });
+});
 module.exports = router;

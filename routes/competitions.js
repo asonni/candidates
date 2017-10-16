@@ -40,4 +40,9 @@ router.get('/:id', userHelpers.isLogin, (req, res) => {
   });
 });
 
+router.delete('/:id',userHelpers.isLogin ,  (req, res) => {
+  CompetitionsMgr.deleteCompetition(req.params.id,competitions => {
+    res.send(competitions);
+  });
+});
 module.exports = router;

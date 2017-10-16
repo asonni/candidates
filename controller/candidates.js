@@ -3,7 +3,7 @@ var candidates = null;
 
 module.exports = {
   getCandidateId: function(id, cb) {
-    model.Candidates.findOne({ _id: id }, function(err, result) {
+    model.Candidates.findOne({ _id: id,status:1 }, function(err, result) {
       if (!err) {
         cb(result);
       } else {
@@ -15,7 +15,7 @@ module.exports = {
     page = parseInt(page);
     page -= 1;
     limit = parseInt(limit);
-    var q = {};
+    var q = {status:1};
     model.Candidates.count(q, function(err, count) {
       model.Candidates
         .find(q)
@@ -46,7 +46,7 @@ module.exports = {
   },
   updateCandidate: function(id, body, cb) {
     var obj = body;
-    model.Candidates.findOneAndUpdate({ _id: id }, obj, function(err) {
+    model.Candidates.findOneAndUpdate({ _id: id,status:1 }, obj, function(err) {
       if (!err) {
         cb(true);
       } else {

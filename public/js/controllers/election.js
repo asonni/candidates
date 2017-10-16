@@ -136,7 +136,7 @@
           function(response) {
             if (response.data.result == 1 && response.status == 200) {
               $scope.deleteModal.hide();
-              $scope.init();
+              $scope.refreshElections();
               toastr.success('تم الحذف بنجاح');
             } else if (response.data.result == 2 && response.status == 200) {
               $scope.deleteModal.hide();

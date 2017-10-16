@@ -30,7 +30,7 @@ module.exports = {
     page = parseInt(page);
     page -= 1;
     limit = parseInt(limit);
-    var q = {};
+    var q = {status:1};
     model.Competition.count(q, function(err, count) {
       model.Competition
         .find(q)
@@ -52,10 +52,11 @@ module.exports = {
     limit = parseInt(limit);
     if(election != -1){
       var q ={
-        election:election
+        election:election,
+        status:1
       };
     }else{
-      var q = {};  
+      var q = {status:1};  
     }
     if(parseFloat(text) != -1 && text !=' '){
       q.name =new RegExp(text, 'i');
@@ -77,7 +78,7 @@ module.exports = {
   },
   updateCompetition: function(id, body, cb) {
     var obj = body;
-    model.Competition.findOneAndUpdate({ _id: id }, obj, function(err) {
+    model.Competition.findOneAndUpdate({ _id: id,status:1}, obj, function(err) {
       if (!err) {
         cb(true);
       } else {
@@ -87,7 +88,7 @@ module.exports = {
     });
   },
   getCompetitionId: function(id, cb) {
-    model.Competition.findOne({ _id: id }, function(err, result) {
+    model.Competition.findOne({ _id: id,status:1 }, function(err, result) {
       if (!err) {
         cb(result);
       } else {
@@ -96,12 +97,33 @@ module.exports = {
     });
   },
   getCompetitionsElection: function(id, cb) {
-    model.Competition.find({ election: id }, function(err, result) {
+    model.Competition.find({ election: id ,status:1}, function(err, result) {
       if (!err) {
         cb(result);
       } else {
         cb(null);
       }
     });
+  },
+  deleteCompetition : function(id, cb) {
+    model.Candidates.find({ competition: id,status:1}, function(err, result) {
+      if (!err) {
+        if(result.length){
+          cb({ result: 2});
+        }else{
+          model.Competition.findOneAndUpdate({ _id: id }, {status:0}, function(err) {
+            if (!err) {
+              cb({ result: 1});
+            } else {
+              // console.log(err);
+              cb({ result: 3 });
+            }
+          });
+        }
+      } else {
+        cb({ result: 3});
+      }
+    });
+
   }
 };

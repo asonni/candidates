@@ -41,4 +41,10 @@ router.get('/:id', userHelpers.isLogin, (req, res) => {
   });
 });
 
+
+router.delete('/:id',userHelpers.isLogin ,  (req, res) => {
+  AttachmentsMgr.deleteAttachment(req.params.id,attachment => {
+    res.send(attachment);
+  });
+});
 module.exports = router;
