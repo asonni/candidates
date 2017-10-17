@@ -212,6 +212,27 @@
               }
             ]
           }
+        })
+        .state('users', {
+          url: '/users',
+          templateUrl: 'pages/user/userList',
+          data: { pageTitle: 'المستخدمين' },
+          controller: 'usersCtrl',
+          resolve: {
+            deps: [
+              '$ocLazyLoad',
+              function($ocLazyLoad) {
+                return $ocLazyLoad.load({
+                  insertBefore: '#ngLoadControllersBefore',
+                  files: [
+                    '/js/services/helpers.js',
+                    '/js/services/user.js',
+                    '/js/controllers/user.js'
+                  ]
+                });
+              }
+            ]
+          }
         });
     }
   ]);

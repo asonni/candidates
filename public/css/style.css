@@ -20,6 +20,9 @@ body {
   /*font-weight: 500;*/
   overflow-y: scroll;
 }
+.modal-open {
+  overflow-y: scroll;
+}
 .logo {
   width: 185px;
   height: 42px;
@@ -184,4 +187,7 @@ body {
 }
 .aside {
   width: 30%;
+}
+.form-horizontal .control-label {
+  text-align: right;
 }
