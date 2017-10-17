@@ -7,10 +7,7 @@ const User = new Schema({
   password: { type: String, required: true },
   salt: String,
   email: { type: String, unique: true, required: true },
-  phone: {
-    type: String,
-    default: 'NULL'
-  },
+  phone: { type: String, default: 'NULL' },
   office: { type: Schema.Types.ObjectId, ref: 'Office' },
   level: { type: Number, default: 1 },
   status: { type: Number, default: 1 }
