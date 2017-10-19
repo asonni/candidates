@@ -20,6 +20,14 @@
             });
           return promise;
         },
+        getOffice : function() {
+          var promise = $http
+            .get('/users/offices')
+            .then(function(response) {
+              return response;
+            });
+          return promise;
+        },
         newUser: function(newUser) {
           var promise = $http.post('/users/', newUser).then(function(response) {
             return response;

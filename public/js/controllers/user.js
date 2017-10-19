@@ -22,7 +22,19 @@
         { id: 2, name: 'admin' },
         { id: 3, name: 'normal user' }
       ];
-
+      userService.getOffice().then(function(response) {
+        if (response.status == 200) {
+          $scope.offices = response.data;
+        } else {
+          toastr.error('يوجد خطأ في عرض المستخدمين, الرجاء المحاولة لاحقا');
+        }
+      },
+      function(response) {
+        toastr.error(
+          'يوجد خطأ في عرض المستخدمين, الرجاء الاتصال بمشرف المنظومة'
+        );
+        console.log('Something went wrong ' + response.data);
+      });
       $scope.refreshUsers = function() {
         userService.fetchUsers($scope.pageSize, $scope.currentPage).then(
           function(response) {
@@ -43,6 +55,7 @@
       };
 
       $scope.refreshUsers();
+
 
       $scope.showNewUserModal = function() {
         $scope.modalTitle = 'إضافة مستخدم جديد';
