@@ -72,7 +72,7 @@ module.exports = {
   },
 
   deleteUser : function(id,cb){
-    model.User.findOneAndUpdate({_id:id},{status:0} function(err,result) {
+    model.User.findOneAndUpdate({_id:id},{status:0} ,function(err,result) {
       if (!err) {
         cb(result);
       } else {

@@ -22,12 +22,12 @@ module.exports = {
     // console.log(isNameAR(body.p_name) +' /p_name '); 
     // console.log(isNameAR(body.g_name) +' / g_name') ;
     // console.log(isNameAR(body.l_name) +' / lname') ;
-    // console.log(isNameAR(body.mother_name) +' /mother ') ;
+    // console.log(isNameAR(body.mother_name.replace(/\s/g, '') ) +' /mother ') ;
     // console.log(isPhone(body.phone) +' /phone ') ;
     // console.log(isPhone(body.work_phone)+' /work ') 
     // console.log(isEmail(body.email)+' email')
     if(isNid(body.nid) && isCra(body.cra) &&  isNameAR(body.f_name) && isNameAR(body.p_name) 
-      && isNameAR(body.g_name) && isNameAR(body.l_name) && isNameAR(body.mother_name) && isPhone(body.phone) && isPhone(body.work_phone)
+      && isNameAR(body.g_name) && isNameAR(body.l_name) && isNameAR(body.mother_name.replace(/\s/g, '')) && isPhone(body.phone) && isPhone(body.work_phone)
       && isEmail(body.email)){
       return true;
     }else{
