@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const qualifications = require('../qualifications')
+const qualifications = require('../qualifications');
+
 router.get('/', (req, res, next) => {
   res.render('login');
 });
