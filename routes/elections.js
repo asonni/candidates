@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const ElectionMgr = require('../controller/elections');
 const userHelpers = require('../controller/userHelpers');
+const LogMgr = require('../controller/logs');
 
 
 
@@ -13,10 +14,20 @@ router.get('/', userHelpers.isLogin, (req, res) => {
 router.post('/', userHelpers.isLogin, (req, res) => {
   if(userHelpers.isName(req.body.name)){
     ElectionMgr.newElection(req.body, newElection => {
-      res.send(newElection);
-    });
+      LogMgr.newLog({
+        user_iduser :req.user._id,
+        office :req.user.office,
+        type :"add",
+        table :"Election",
+        desc :"add new election name : "+req.body.name,
+        table_idtable : newElection.result._id,
+        value: req.body.name
+      },log =>{
+        res.send(newElection);
+      });
+  });
   }else{
-    res.send({ result: false, err: 1 });
+    res.send({ result: false, err: 4 });
   }
   
 });

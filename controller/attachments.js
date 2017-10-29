@@ -10,7 +10,7 @@ module.exports = {
           attachment = new model.Attachment(obj);
           attachment.save(function(err) {
             if (!err) {
-              cb({ result: true, err: 0 });
+              cb({ result: attachment, err: 0 });
             } else {
               // console.log(err);
               cb({ result: false, err: 2 });

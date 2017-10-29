@@ -11,7 +11,7 @@ module.exports = {
           competition = new model.Competition(obj);
           competition.save(function(err) {
             if (!err) {
-              cb({ result: true, err: 0 });
+              cb({ result: competition, err: 0 });
             } else {
               // console.log(err);
               cb({ result: false, err: 2 });

@@ -2,11 +2,22 @@ const express = require('express');
 const router = express.Router();
 const AttachmentsMgr = require('../controller/attachments');
 const userHelpers = require('../controller/userHelpers');
+const LogMgr = require('../controller/logs');
 
 router.post('/', userHelpers.isLogin, (req, res) => {
   if(userHelpers.isName(req.body.name)){
     AttachmentsMgr.newAttachment(req.body, newAttachment => {
-      res.send(newAttachment);
+      LogMgr.newLog({
+        user_iduser :req.user._id,
+        office :req.user.office,
+        type :"add",
+        table :"Attachment",
+        desc :"add new Attachment name : "+req.body.name,
+        table_idtable : newAttachment.result._id,
+        value: req.body.name
+      },log =>{
+        res.send(newAttachment);
+      });
     });
   }else{
     res.send({ result: false, err: 4 });

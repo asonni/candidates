@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+var login = require('../controller/login')(router);
 const qualifications = require('../qualifications');
 
 router.get('/', (req, res, next) => {

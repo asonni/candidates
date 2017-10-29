@@ -2,11 +2,23 @@ const express = require('express');
 const router = express.Router();
 const CompetitionsMgr = require('../controller/competitions');
 const userHelpers = require('../controller/userHelpers');
+const LogMgr = require('../controller/logs');
 
 router.post('/', userHelpers.isLogin, (req, res) => {
   if(userHelpers.isName(req.body.name)){
     CompetitionsMgr.newCompetition(req.body, newCompetition => {
-      res.send(newCompetition);
+      LogMgr.newLog({
+        user_iduser :req.user._id,
+        office :req.user.office,
+        type :"add",
+        table :"Competition",
+        desc :"add new Competition name : "+req.body.name,
+        table_idtable : newCompetition.result._id,
+        value: req.body.name
+      },log =>{
+        res.send(newCompetition);
+      });
+      
     });
   }else{
     res.send({ result: false, err: 4 });

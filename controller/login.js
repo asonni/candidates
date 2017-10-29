@@ -3,8 +3,8 @@ var passport = require('passport'),
   easyPbkdf2 = require('easy-pbkdf2')();
 var mongoose = require('mongoose');
 var model = require('../models');
-var UserC = require('../controller/user');
-var ResellerC = require('../controller/reseller');
+var User = require('../controller/user');
+const LogMgr = require('../controller/logs');
 
 //read the passport api docs if you wanna know what this does
 passport.use(
@@ -40,7 +40,7 @@ passport.deserializeUser(function(id, done) {
 });
 
 module.exports = function(router) {
-  router.post('/user/login', function(req, res, next) {
+  router.post('/login', function(req, res, next) {
     passport.authenticate('local', function(err, user) {
       if (err) {
         return next(err);
@@ -53,19 +53,38 @@ module.exports = function(router) {
         if (err) {
           return next(err);
         }
-        if (user) {
-          return res.send({ login: true, admin: false });
-        } else {
-          return res.send({ login: true, admin: true });
-        }
+        LogMgr.newLog({
+        user_iduser :req.user._id,
+        office :req.user.office,
+        type :"login",
+        table :"user",
+        desc :req.user.name+" has login ",
+        table_idtable :req.user._id,
+        value: req.user.name
+      },log =>{
+        return res.send({ login: true, admin: user.level });
+      });
+        
+
       });
     })(req, res, next);
   });
 
   // here if a user wants to logout of the app
-  router.get('/user/logout', ensureAuthenticated, function(req, res) {
-    req.session.destroy();
-    res.redirect('/');
+  router.get('/logout', ensureAuthenticated, function(req, res) {
+    LogMgr.newLog({
+        user_iduser :req.user._id,
+        office :req.user.office,
+        type :"login",
+        table :"user",
+        desc :req.user.name+" has logout ",
+        table_idtable :req.user._id,
+        value: req.user.name
+      },log =>{
+        req.session.destroy();
+        res.redirect('/');
+      });
+    
   });
   return router;
 };
