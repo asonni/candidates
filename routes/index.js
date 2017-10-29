@@ -16,8 +16,8 @@ router.get('/home', (req, res, next) => {
   res.render('index');
 });
 
-router.get('/current_user',(req, res, next) => {
-  if(req.isAuthenticated()){
+router.get('/current_user', (req, res, next) => {
+  if (req.isAuthenticated()) {
     const { level, name, office, email, phone } = req.user;
     res.send({
       level,
@@ -25,15 +25,16 @@ router.get('/current_user',(req, res, next) => {
       office,
       email,
       phone
-    });   
-  }else{
-    res.send({level:0,
-      name:null,
-      office:0,
-      email:null,
-      phone:null})
+    });
+  } else {
+    res.send({
+      level: 0,
+      name: null,
+      office: 0,
+      email: null,
+      phone: null
+    });
   }
-  
 });
 
 router.get('/pages/:name', (req, res) => {

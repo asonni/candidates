@@ -13,28 +13,28 @@
     </div>
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li ui-sref-active="active">
+        <li ui-sref-active="active" ng-if="authGuard.level === 1 || authGuard.level === 2 || authGuard.level === 3">
           <a ui-sref="candidates"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;المرشحين</a>
         </li>
-        <li ui-sref-active="active">
+        <li ui-sref-active="active" ng-if="authGuard.level === 3">
           <a ui-sref="newCandidate"><i class="fa fa-user-plus" aria-hidden="true"></i>&nbsp;مترشح جديد</a>
         </li>
-        <li ui-sref-active="active">
+        <li ui-sref-active="active" ng-if="authGuard.level === 1">
           <a ui-sref="elections"><i class="fa fa-handshake-o" aria-hidden="true"></i>&nbsp;اﻷنتخابات</a>
         </li>
-        <li ui-sref-active="active">
+        <li ui-sref-active="active" ng-if="authGuard.level === 1 || authGuard.level === 2">
           <a ui-sref="competitions"><i class="fa fa-ravelry" aria-hidden="true"></i>&nbsp;انماط التنافس</a>
         </li>
-        <li ui-sref-active="active">
+        <li ui-sref-active="active" ng-if="authGuard.level === 1 || authGuard.level === 2">
           <a ui-sref="attachments"><i class="fa fa-paperclip" aria-hidden="true"></i>&nbsp;المرفقات</a>
         </li>
-        <li ui-sref-active="active">
+        <li ui-sref-active="active" ng-if="authGuard.level === 1">
           <a ui-sref="users"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;المستخدمين</a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-left">
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;اسم المستخدم <span class="caret"></span></a>
+          <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-o" aria-hidden="true"></i>&nbsp;{{authGuard.name}} <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li>
               <a href="#">
