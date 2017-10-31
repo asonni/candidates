@@ -15,7 +15,7 @@ module.exports = {
     });
   },
   getElection: function( cb) {
-    model.Elections.find({}).exec(function(err, elections) {
+    model.Elections.find({status:1}).exec(function(err, elections) {
       if (!err) {
         cb(elections);
       } else {
@@ -28,7 +28,7 @@ module.exports = {
     page = parseInt(page);
     page -= 1;
     limit = parseInt(limit);
-    var q = {};
+    var q = {status:1};
     model.Elections.count(q, function(err, count) {
       model.Elections
         .find(q)
@@ -46,7 +46,7 @@ module.exports = {
   },
   updateElection: function(id, body, cb) {
     var obj = body;
-    model.Elections.findOneAndUpdate({ _id: id }, obj, function(err) {
+    model.Elections.findOneAndUpdate({ _id: id,status:1 }, obj, function(err) {
       if (!err) {
         cb(true);
       } else {
@@ -56,12 +56,54 @@ module.exports = {
     });
   },
   getLastElection: function(cb) {
-    model.Elections.findOne().sort({ _id: -1 }).exec(function(err, elections) {
+    model.Elections.findOne({status:1}).sort({ _id: -1 }).exec(function(err, elections) {
       if (!err && elections != null) {
         cb(elections);
       } else {
         cb(false);
       }
     });
+  },
+  deleteElection : function(id, cb) {
+    model.Competition.find({ election: id ,status:1}, function(err, competition) {
+      if (!err) {
+        if(competition.length){
+          cb({ result: 2});
+        }else{
+          model.Attachment.find({ election: id ,status:1}, function(err, attachment) {
+            if (!err) {
+              if(competition.length){
+                cb({ result: 2});
+              }else{
+                model.Candidates.find({ election: id,status:1}, function(err,candidates) {
+                  if (!err) {
+                    if(candidates.length){
+                      cb({ result: 2});
+                    }else{
+                      model.Elections.findOneAndUpdate({ _id: id }, {status:0}, function(err) {
+                        if (!err) {
+                          cb({ result: 1});
+                        } else {
+                          cb({ result: 3 });
+                        }
+                      });
+                    }
+                  } else {
+                    cb({ result: 3});
+                  }
+                });
+              }
+            } else {
+              cb({ result: 3 });
+            }
+          });
+        }
+        
+      } else {
+        cb({ result: 3 });
+      }
+    });
+    
+
   }
 };

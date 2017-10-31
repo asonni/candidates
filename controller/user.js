@@ -11,6 +11,7 @@ module.exports = {
     model.User.count({status:1}, function(err, count) {
       model.User
         .find({status:1})
+        .populate('office')
         .limit(limit)
         .skip(page * limit)
         .exec(function(err, users) {

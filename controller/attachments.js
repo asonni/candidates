@@ -29,7 +29,7 @@ module.exports = {
     page = parseInt(page);
     page -= 1;
     limit = parseInt(limit);
-    var q = {};
+    var q = {status:1};
     model.Attachment.count(q, function(err, count) {
       model.Attachment
         .find(q)
@@ -47,7 +47,7 @@ module.exports = {
   },
   updateAttachment: function(id, body, cb) {
     var obj = body;
-    model.Attachment.findOneAndUpdate({ _id: id }, obj, function(err) {
+    model.Attachment.findOneAndUpdate({ _id: id,status:1 }, obj, function(err) {
       if (!err) {
         cb(true);
       } else {
@@ -57,7 +57,7 @@ module.exports = {
     });
   },
   getAttachmentId: function(id, cb) {
-    model.Attachment.findOne({ _id: id }, function(err, result) {
+    model.Attachment.findOne({ _id: id,status:1 }, function(err, result) {
       if (!err) {
         cb(result);
       } else {
@@ -71,10 +71,11 @@ module.exports = {
     limit = parseInt(limit);
     if(election != -1){
       var q ={
-        election:election
+        election:election,
+        status:1
       };
     }else{
-      var q = {};  
+      var q = {status:1};  
     }
     if(parseFloat(text) != -1 && text !=' '){
       q.name =new RegExp(text, 'i');
@@ -95,12 +96,33 @@ module.exports = {
     });
   },
   getAttachmentElection: function(id, cb) {
-    model.Attachment.find({ election: id }, function(err, result) {
+    model.Attachment.find({ election: id ,status:1}, function(err, result) {
       if (!err) {
         cb(result);
       } else {
         cb(null);
       }
     });
+  },
+  deleteAttachment : function(id, cb) {
+    model.Candidates.find({ attachment: id,status:1}, function(err, result) {
+      if (!err) {
+        if(result.length){
+          cb({ result: 2});
+        }else{
+          model.Attachment.findOneAndUpdate({ _id: id }, {status:0}, function(err) {
+            if (!err) {
+              cb({ result: 1});
+            } else {
+              // console.log(err);
+              cb({ result: 3 });
+            }
+          });
+        }
+      } else {
+        cb({ result: 3});
+      }
+    });
+
   }
 };
