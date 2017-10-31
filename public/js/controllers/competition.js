@@ -192,16 +192,16 @@
       $scope.confirmDeleteModal = function(id) {
         competitionService.deleteCompetition(id).then(
           function(response) {
-            if (response.data.result == 1 && response.status == 200) {
+            if (response.data.err == 0 && response.status == 200) {
               $scope.deleteModal.hide();
               $scope.refreshCompetitions();
               toastr.success('تم الحذف بنجاح');
-            } else if (response.data.result == 2 && response.status == 200) {
+            } else if (response.data.err == 2 && response.status == 200) {
               $scope.deleteModal.hide();
               toastr.info(
                 'لا يمكن حذف هذا النوع من انماط التنافس لاعتماده علي كيانات اخري'
               );
-            } else if (response.data.result == 3 && response.status == 200) {
+            } else if (response.data.err == 3 && response.status == 200) {
               $scope.deleteModal.hide();
               toastr.error('خطأ في عملية الحذف, الرجاء اعادة المحاولة');
             }

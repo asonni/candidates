@@ -68,28 +68,28 @@ module.exports = {
     model.Competition.find({ election: id ,status:1}, function(err, competition) {
       if (!err) {
         if(competition.length){
-          cb({ result: 2});
+          cb({ result: false, err: 2 });
         }else{
           model.Attachment.find({ election: id ,status:1}, function(err, attachment) {
             if (!err) {
               if(competition.length){
-                cb({ result: 2});
+                cb({ result: false, err: 2 });
               }else{
                 model.Candidates.find({ election: id,status:1}, function(err,candidates) {
                   if (!err) {
                     if(candidates.length){
-                      cb({ result: 2});
+                      cb({ result: false, err: 2 });
                     }else{
-                      model.Elections.findOneAndUpdate({ _id: id }, {status:0}, function(err) {
+                      model.Elections.findOneAndUpdate({ _id: id }, {status:0}, function(err,election) {
                         if (!err) {
-                          cb({ result: 1});
+                          cb({ result: election, err: 0 });
                         } else {
-                          cb({ result: 3 });
+                          cb({ result: false, err: 3 });
                         }
                       });
                     }
                   } else {
-                    cb({ result: 3});
+                    cb({ result: false, err: 3 });
                   }
                 });
               }

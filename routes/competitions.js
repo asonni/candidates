@@ -7,17 +7,22 @@ const LogMgr = require('../controller/logs');
 router.post('/', userHelpers.isLogin, (req, res) => {
   if(userHelpers.isName(req.body.name)){
     CompetitionsMgr.newCompetition(req.body, newCompetition => {
-      LogMgr.newLog({
-        user_iduser :req.user._id,
-        office :req.user.office,
-        type :"add",
-        table :"Competition",
-        desc :"add new Competition name : "+req.body.name,
-        table_idtable : newCompetition.result._id,
-        value: req.body.name
-      },log =>{
+      if(newCompetition.result){
+        LogMgr.newLog({
+          user_iduser :req.user._id,
+          office :req.user.office,
+          type :"add",
+          table :"Competition",
+          desc :"add new Competition name : "+req.body.name,
+          table_idtable : newCompetition.result._id,
+          value: req.body.name
+        },log =>{
+          res.send(newCompetition);
+        });
+      }else{
         res.send(newCompetition);
-      });
+      }
+      
       
     });
   }else{
@@ -54,7 +59,21 @@ router.get('/:id', userHelpers.isLogin, (req, res) => {
 
 router.delete('/:id',userHelpers.isLogin ,  (req, res) => {
   CompetitionsMgr.deleteCompetition(req.params.id,competitions => {
-    res.send(competitions);
+    if(competitions.result){
+      LogMgr.newLog({
+        user_iduser :req.user._id,
+        office :req.user.office,
+        type :"delete",
+        table :"Competitions",
+        desc :"delete competitions name : "+competitions.result.name,
+        table_idtable : competitions.result._id,
+        value: competitions.result.name
+      },log =>{
+        res.send(competitions);
+      });
+    }else{
+      res.send(competitions)
+    }
   });
 });
 module.exports = router;

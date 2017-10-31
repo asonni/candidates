@@ -148,14 +148,11 @@
       $scope.confirmDeleteModal = function(id) {
         userService.deleteUser(id).then(
           function(response) {
-            if (response.data.result == 1 && response.status == 200) {
+            if (response.data.result && response.status == 200) {
               $scope.deleteModal.hide();
-              $scope.init();
+              $scope.refreshUsers();
               toastr.success('تم الحذف بنجاح');
-            } else if (response.data.result == 2 && response.status == 200) {
-              $scope.deleteModal.hide();
-              toastr.info('لا يمكن حذف هذا المستخدم لاعتماده علي كيانات اخري');
-            } else if (response.data.result == 3 && response.status == 200) {
+            } else  {
               $scope.deleteModal.hide();
               toastr.error('خطأ في عملية الحذف, الرجاء اعادة المحاولة');
             }

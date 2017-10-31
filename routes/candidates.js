@@ -6,6 +6,7 @@ const AttachmentsMgr = require('../controller/attachments');
 const CompetitionsMgr = require('../controller/competitions');
 const userHelpers = require('../controller/userHelpers');
 var validator = require('validator');
+const LogMgr = require('../controller/logs');
 
 
 /* Add new Candidates  */

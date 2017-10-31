@@ -62,11 +62,11 @@ module.exports = {
         if (!err) {
           delete result.password;
           delete result.salt;
-          cb(result);
+          cb({ result: result, err: 0 });
         } else {
           //TODO: return page with errors
           console.log(err);
-          cb(false);
+          cb({ result: false, err: 1 });
         }
       });
     });
@@ -75,10 +75,10 @@ module.exports = {
   deleteUser : function(id,cb){
     model.User.findOneAndUpdate({_id:id},{status:0} ,function(err,result) {
       if (!err) {
-        cb(result);
+        cb({ result: result, err: 0 });
       } else {
         console.log(err);
-        cb(false);
+        cb({ result: false, err: 1 });
       }
     });
 

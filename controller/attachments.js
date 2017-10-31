@@ -3,7 +3,7 @@ var attachment = null;
 module.exports = {
   newAttachment: function(body, cb) {
     var obj = body;
-    model.Elections.findOne().sort({ _id: -1 }).exec(function(err, elections) {
+    model.Elections.findOne({status:1}).sort({ _id: -1 }).exec(function(err, elections) {
       if (!err) {
         if (elections != null) {
           obj['election'] = elections._id;
@@ -108,19 +108,20 @@ module.exports = {
     model.Candidates.find({ attachment: id,status:1}, function(err, result) {
       if (!err) {
         if(result.length){
-          cb({ result: 2});
+          cb({ result: false, err:2 });
         }else{
-          model.Attachment.findOneAndUpdate({ _id: id }, {status:0}, function(err) {
+          model.Attachment.findOneAndUpdate({ _id: id }, {status:0}, function(err,att) {
             if (!err) {
-              cb({ result: 1});
+              // cb({ result: 1});
+              cb({ result: att, err: 0 });
             } else {
               // console.log(err);
-              cb({ result: 3 });
+              cb({ result: false, err:3 });
             }
           });
         }
       } else {
-        cb({ result: 3});
+        cb({ result: false, err:3 });
       }
     });
 

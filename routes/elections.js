@@ -14,18 +14,23 @@ router.get('/', userHelpers.isLogin, (req, res) => {
 router.post('/', userHelpers.isLogin, (req, res) => {
   if(userHelpers.isName(req.body.name)){
     ElectionMgr.newElection(req.body, newElection => {
-      LogMgr.newLog({
-        user_iduser :req.user._id,
-        office :req.user.office,
-        type :"add",
-        table :"Election",
-        desc :"add new election name : "+req.body.name,
-        table_idtable : newElection.result._id,
-        value: req.body.name
-      },log =>{
+      if(newElection.result){
+        LogMgr.newLog({
+          user_iduser :req.user._id,
+          office :req.user.office,
+          type :"add",
+          table :"Election",
+          desc :"add new election name : "+req.body.name,
+          table_idtable : newElection.result._id,
+          value: req.body.name
+        },log =>{
+          res.send(newElection);
+        });
+      }else{
         res.send(newElection);
-      });
-  });
+      }
+      
+    });
   }else{
     res.send({ result: false, err: 4 });
   }
@@ -51,7 +56,21 @@ router.get('/:id', userHelpers.isLogin, (req, res) => {
 });
 router.delete('/:id',userHelpers.isLogin ,  (req, res) => {
   ElectionMgr.deleteElection(req.params.id,elections => {
-    res.send(elections);
+    if(elections.result){
+      LogMgr.newLog({
+        user_iduser :req.user._id,
+        office :req.user.office,
+        type :"delete",
+        table :"Elections",
+        desc :"delete elections name : "+elections.result.name,
+        table_idtable : elections.result._id,
+        value: elections.result.name
+      },log =>{
+        res.send(elections);
+      });
+    }else{
+      res.send(elections)
+    }
   });
 });
 module.exports = router;

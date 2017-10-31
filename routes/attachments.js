@@ -7,17 +7,21 @@ const LogMgr = require('../controller/logs');
 router.post('/', userHelpers.isLogin, (req, res) => {
   if(userHelpers.isName(req.body.name)){
     AttachmentsMgr.newAttachment(req.body, newAttachment => {
-      LogMgr.newLog({
-        user_iduser :req.user._id,
-        office :req.user.office,
-        type :"add",
-        table :"Attachment",
-        desc :"add new Attachment name : "+req.body.name,
-        table_idtable : newAttachment.result._id,
-        value: req.body.name
-      },log =>{
+      if(newAttachment.result){
+        LogMgr.newLog({
+          user_iduser :req.user._id,
+          office :req.user.office,
+          type :"add",
+          table :"Attachment",
+          desc :"add new Attachment name : "+req.body.name,
+          table_idtable : newAttachment.result._id,
+          value: req.body.name
+        },log =>{
+          res.send(newAttachment);
+        });
+      }else{
         res.send(newAttachment);
-      });
+      }
     });
   }else{
     res.send({ result: false, err: 4 });
@@ -55,7 +59,22 @@ router.get('/:id', userHelpers.isLogin, (req, res) => {
 
 router.delete('/:id',userHelpers.isLogin ,  (req, res) => {
   AttachmentsMgr.deleteAttachment(req.params.id,attachment => {
-    res.send(attachment);
+    if(attachment.result){
+      LogMgr.newLog({
+        user_iduser :req.user._id,
+        office :req.user.office,
+        type :"delete",
+        table :"Attachment",
+        desc :"delete Attachment name : "+attachment.result.name,
+        table_idtable : attachment.result._id,
+        value: attachment.result.name
+      },log =>{
+        res.send(attachment);
+      });
+    }else{
+      res.send(attachment)
+    }
+    
   });
 });
 module.exports = router;
