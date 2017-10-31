@@ -248,5 +248,126 @@
     }
   ]);
 
-  app.controller('editCandidateCtrl', ['$scope', function($scope) {}]);
+  app.controller('editCandidateCtrl', [
+    '$scope',
+    '$timeout',
+    '$state',
+    '$stateParams',
+    'toastr',
+    'helpers',
+    'candidateService',
+    function(
+      $scope,
+      $timeout,
+      $state,
+      $stateParams,
+      toastr,
+      helpers,
+      candidateService
+    ) {
+      $scope.required = true;
+      $scope.unrequited = false;
+      $scope.laddaStatus = false;
+      $scope.attachments = [];
+      $scope.competitions = [];
+      $scope.genderTypes = [{ id: 1, name: 'ذكر' }, { id: 2, name: 'انتى' }];
+      $scope.editCandidateForm = {};
+      candidateService.getQualification().then(
+        function(response) {
+          if (response.status == 200) {
+            $scope.qualifications = response.data;
+          } else {
+            toastr.error('يوجد خطأ في ');
+          }
+        },
+        function(response) {
+          toastr.error('يوجد خطأ في ');
+          console.log('Something went wrong ' + response.data);
+        }
+      );
+      $scope.getAttachment = function() {
+        candidateService.getAttachment().then(
+          function(response) {
+            if (response.status == 200) {
+              $scope.attachments = response.data;
+            } else {
+              toastr.error('يوجد خطأ في ');
+            }
+          },
+          function(response) {
+            toastr.error('يوجد خطأ في ');
+            console.log('Something went wrong ' + response.data);
+          }
+        );
+      };
+      $scope.getAttachment();
+      $scope.getCompetition = function() {
+        candidateService.getCompetition().then(
+          function(response) {
+            if (response.status == 200) {
+              $scope.competitions = response.data;
+            } else {
+              toastr.error('يوجد خطأ في ');
+            }
+          },
+          function(response) {
+            toastr.error('يوجد خطأ في ');
+            console.log('Something went wrong ' + response.data);
+          }
+        );
+      };
+      $scope.getCompetition();
+      candidateService.fetchCandidate($stateParams.id).then(
+        function(response) {
+          var arr = [];
+          response.data.qualification = parseInt(response.data.qualification);
+          response.data.attachment.forEach(function(key, value) {
+            arr[key] = true;
+          });
+          response.data.attachment = arr;
+          var birthDay = new Date(response.data.birth_day);
+          response.data.birth_day =
+            birthDay.getFullYear() +
+            '-' +
+            ('0' + (birthDay.getMonth() + 1)).slice(-2) +
+            '-' +
+            ('0' + birthDay.getDate()).slice(-2);
+          $scope.editCandidateForm = response.data;
+        },
+        function(response) {
+          toastr.error(
+            'يوجد خطأ في جلب بيانات هذا المرشح, الرجاء الاتصال بمشرف المنضومة'
+          );
+          console.log('Something went wrong ' + response.data);
+        }
+      );
+      $scope.editCandidate = function() {
+        $scope.laddaStatus = true;
+        candidateService
+          .editCandidate($stateParams.id, $scope.editCandidateForm)
+          .then(
+            function(response) {
+              if (response) {
+                $timeout(function() {
+                  $scope.editCandidateForm = {};
+                  $scope.laddaStatus = false;
+                  toastr.info('تم التعديل بنجاح');
+                  $state.go('candidates');
+                }, 500);
+              } else {
+                $scope.laddaStatus = false;
+                toastr.error('خطأ في عملية التعديل, الرجاء اعادة المحاولة');
+              }
+            },
+            function(response) {
+              $scope.laddaStatus = false;
+              toastr.error(
+                'يوجد خطأ في تعديل هذا المرشح, الرجاء الاتصال بمشرف المنضومة'
+              );
+              console.log('Something went wrong ' + response.data);
+            }
+          );
+      };
+    }
+  ]);
 })();
