@@ -52,7 +52,7 @@
             <td class="text-center">{{candidate.phone}}</td>
             <td class="text-center">
               <div class="btn-group">
-                <a class="btn btn-info btn-sm" ng-if="authGuard.level === 1 || authGuard.level === 2"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;تعديل</a>
+                <a class="btn btn-info btn-sm" ui-sref="editCandidate({id:candidate._id})" ng-if="authGuard.level === 1 || authGuard.level === 2"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;تعديل</a>
                 <a class="btn btn-danger btn-sm" ng-click="showDeleteModal()" ng-if="authGuard.level === 1 || authGuard.level === 2"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;حذف</a>
                 <button type="button" class="btn btn-default btn-sm" data-template-url="pages/candidate/readMoreInfo" bs-aside><i class="fa fa-book" aria-hidden="true"></i>&nbsp;عرض المزيد</button>
               </div>

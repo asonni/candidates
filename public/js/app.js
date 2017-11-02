@@ -12,6 +12,8 @@
     'angular-ladda'
   ]);
 
+  app.constant('_', window._);
+
   app.run([
     '$rootScope',
     '$state',
@@ -21,6 +23,7 @@
       // $window.onbeforeunload =  function() {
       //    return ('bye bye');
       //  };
+      $rootScope._ = window._;
       $rootScope.$state = $state; // state to be accessed from view
       defaultErrorMessageResolver.setI18nFileRootPath('/lang');
       defaultErrorMessageResolver.setCulture('ar-ly');
@@ -213,7 +216,7 @@
               $rootScope.authGuard = {};
               authService.authGuard().then(
                 function(response) {
-                  if (response.data.level === 2) {
+                  if (response.data.level === 1 || response.data.level === 2) {
                     $rootScope.authGuard = response.data;
                     return true;
                   } else if (response.data.level === 0) {
