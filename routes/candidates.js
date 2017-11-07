@@ -71,7 +71,7 @@ router.get('/getCompetition', userHelpers.isLogin, (req, res) => {
 
 // /*GET all Candidates By Search Value*/
 router.post('/get/:limit/:page', userHelpers.isLogin, (req, res) => {
-  CandidatesMgr.getAllCandidatesBySearchValue(req.userوreq.body,req.params.limit,req.params.page,function(Candidates) {
+  CandidatesMgr.getAllCandidatesBySearchValue(req.user,req.body,req.params.limit,req.params.page,function(Candidates) {
     res.send(Candidates);
   });
 });
