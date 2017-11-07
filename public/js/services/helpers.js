@@ -66,6 +66,31 @@
               break;
             }
           }
+        },
+        leftToRight: function(text) {
+          var plainText = '';
+          var array = text.split(' ');
+          var arabic = /[\u0600-\u06FF]/;
+          var english = /^[A-Za-z]*$/;
+          var string = 'english';
+          for (var i = 0; i < array.length; i++) {
+            if (english.test(array[i])) {
+              plainText = '\u0020.' + array[i] + '\u0020' + plainText;
+            } else {
+              plainText = array[i] + '\u0020' + plainText;
+            }
+          }
+          return plainText;
+        },
+        reduceDate: function(date) {
+          var fullDate = new Date(date);
+          return (
+            fullDate.getFullYear() +
+            '-' +
+            ('0' + (fullDate.getMonth() + 1)).slice(-2) +
+            '-' +
+            ('0' + fullDate.getDate()).slice(-2)
+          );
         }
       };
       return helpers;

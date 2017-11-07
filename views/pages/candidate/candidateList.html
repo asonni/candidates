@@ -15,11 +15,18 @@
         </form>
       </div>
       <div class="col-md-3 text-left">
-        <button class="btn btn-primary btn-sm" ng-click="showAdvancedSearchModal()">بحث متقدم</button>
+        <button class="btn btn-default btn-sm" ng-click="printCandidates()">
+          <i class="fa fa-print" aria-hidden="true"></i>
+          طباعة
+        </button>
+        <button class="btn btn-primary btn-sm" ng-click="showAdvancedSearchModal()">
+          <i class="fa fa-search" aria-hidden="true"></i>
+          بحث متقدم
+        </button>
       </div>
     </div>
   </div>
-  <div class="panel-body margin-top-20">
+  <div class="panel-body" ng-class="!candidates.length ? 'margin-top-20 padding-15' : null">
     <div ng-hide="candidates.length">
       <div class="alert alert-info">
         <p class="text-center">
