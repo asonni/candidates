@@ -41,6 +41,9 @@ body {
 .no-padding {
   padding: 0px;
 }
+.padding-15 {
+  padding: 15px !important;
+}
 .entries {
   padding-top: 15px;
 }
@@ -190,4 +193,7 @@ body {
 }
 .form-horizontal .control-label {
   text-align: right;
+}
+.panel-body {
+  padding: 0;
 }

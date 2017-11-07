@@ -15,7 +15,7 @@
       </div>
     </div>
   </div>
-  <div class="panel-body margin-top-20">
+  <div class="panel-body" ng-class="!users.length ? 'margin-top-20 padding-15' : null">
     <div ng-hide="users.length">
       <div class="alert alert-info">
         <p class="text-center">
