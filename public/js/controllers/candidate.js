@@ -261,7 +261,7 @@
             {
               table: {
                 headerRows: 1,
-                widths: [60, 50, 30, '*', '*', 75, 70, 30],
+                widths: [60, 55, 30, '*', '*', 75, 70, 30],
                 body: bulidItemBody()
               },
               layout: {
