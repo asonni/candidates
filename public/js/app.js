@@ -119,7 +119,6 @@
               $rootScope.authGuard = {};
               authService.authGuard().then(
                 function(response) {
-                  console.log(response.data);
                   if (
                     response.status == 200 &&
                     (response.data.level === 1 ||

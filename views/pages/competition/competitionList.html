@@ -20,7 +20,7 @@
       </div>
     </div>
   </div>
-  <div class="panel-body margin-top-20">
+  <div class="panel-body" ng-class="!competitions.length ? 'margin-top-20 padding-15' : null">
     <div ng-hide="competitions.length">
       <div class="alert alert-info">
         <p class="text-center">

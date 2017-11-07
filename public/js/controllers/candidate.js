@@ -7,8 +7,17 @@
     '$state',
     '$timeout',
     'toastr',
+    'helpers',
     'candidateService',
-    function($scope, $modal, $state, $timeout, toastr, candidateService) {
+    function(
+      $scope,
+      $modal,
+      $state,
+      $timeout,
+      toastr,
+      helpers,
+      candidateService
+    ) {
       $scope.required = true;
       $scope.unrequited = false;
       $scope.laddaAdvancedSearchModal = false;
@@ -21,6 +30,13 @@
       $scope.advancedSearchObj = {};
       $scope.advancedSearchObj.selectedElection = null;
       $scope.genderTypes = [{ id: 1, name: 'ذكر' }, { id: 2, name: 'انتى' }];
+      var fullDate = new Date();
+      var printDate =
+        fullDate.getFullYear() +
+        '-' +
+        ('0' + (fullDate.getMonth() + 1)).slice(-2) +
+        '-' +
+        ('0' + fullDate.getDate()).slice(-2);
       candidateService.getQualification().then(
         function(response) {
           if (response.status == 200) {
@@ -140,6 +156,145 @@
               $scope.laddaAdvancedSearchModal = false;
             }
           );
+      };
+
+      pdfMake.fonts = {
+        JFFlat: {
+          normal: 'JF-Flat-regular.ttf',
+          bold: 'JF-Flat-medium.ttf',
+          italics: 'JF-Flat-regular.ttf',
+          bolditalics: 'JF-Flat-regular.ttf'
+        }
+      };
+
+      $scope.printCandidates = function() {
+        console.log($scope.candidates);
+        function bulidItemBody() {
+          var body = [
+            [
+              {
+                text: helpers.leftToRight('الهاتف النقال')
+              },
+              {
+                text: helpers.leftToRight('تاريخ الميلاد')
+              },
+              {
+                text: 'الجنس'
+              },
+              {
+                text: helpers.leftToRight('اسم اﻷم الثلاثي')
+              },
+              {
+                text: helpers.leftToRight('اﻷسم رباعي')
+              },
+              {
+                text: helpers.leftToRight('رقم كتيب العائلة')
+              },
+              {
+                text: helpers.leftToRight('الرقم الوطني')
+              },
+              {
+                text: 'ر.ت'
+              }
+            ]
+          ];
+          for (var i = 0; i < $scope.candidates.length; i++) {
+            body.push([
+              {
+                text: $scope.candidates[i].phone
+              },
+              {
+                text: helpers.reduceDate($scope.candidates[i].birth_day)
+              },
+              {
+                text: $scope.candidates[i].gender === 1 ? 'ذكر' : 'انثي'
+              },
+              {
+                text: helpers.leftToRight($scope.candidates[i].mother_name)
+              },
+              {
+                text: helpers.leftToRight(
+                  $scope.candidates[i].f_name +
+                    ' ' +
+                    $scope.candidates[i].p_name +
+                    ' ' +
+                    $scope.candidates[i].g_name +
+                    ' ' +
+                    $scope.candidates[i].l_name
+                )
+              },
+              {
+                text: $scope.candidates[i].cra
+              },
+              {
+                text: $scope.candidates[i].nid
+              },
+              {
+                text: i + 1
+              }
+            ]);
+          }
+          return body;
+        }
+        var docDefinition = {
+          pageSize: 'A4',
+          pageOrientation: 'landscape',
+          content: [
+            {
+              columns: [
+                {
+                  text: helpers.leftToRight(
+                    'المفوضية الوطنية العليا لأنتخابات'
+                  ),
+                  style: 'headerStyle'
+                }
+              ]
+            },
+            {
+              columns: [
+                {
+                  text: printDate + ' تاريخ',
+                  style: 'printDateStyle'
+                }
+              ]
+            },
+            {
+              table: {
+                headerRows: 1,
+                widths: [60, 50, 30, '*', '*', 75, 70, 30],
+                body: bulidItemBody()
+              },
+              layout: {
+                hLineColor: function(i) {
+                  return i === 0 ||
+                    i === 1 ||
+                    i === $scope.candidates.length + 1
+                    ? 'black'
+                    : '#aaa';
+                },
+                fillColor: function(i, node) {
+                  return i % 2 === 0 ? '#CCCCCC' : null;
+                }
+              }
+            }
+          ],
+          styles: {
+            headerStyle: {
+              bold: true,
+              fontSize: 16
+            },
+            printDateStyle: {
+              alignment: 'right',
+              margin: [0, 0, 0, 10]
+            }
+          },
+          defaultStyle: {
+            fontSize: 10,
+            font: 'JFFlat',
+            alignment: 'center'
+          }
+        };
+        pdfMake.createPdf(docDefinition).open();
       };
     }
   ]);
