@@ -119,6 +119,7 @@
               $rootScope.authGuard = {};
               authService.authGuard().then(
                 function(response) {
+                  console.log(response.data);
                   if (
                     response.status == 200 &&
                     (response.data.level === 1 ||
@@ -127,7 +128,7 @@
                   ) {
                     $rootScope.authGuard = response.data;
                     return true;
-                  } else if (!response.data.level === 0) {
+                  } else if (response.data.level === 0) {
                     window.location.replace('/logout');
                     return false;
                   }

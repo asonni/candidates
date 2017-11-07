@@ -12,7 +12,7 @@ router.get('/qualifications', (req, res, next) => {
   res.send(qualifications);
 });
 
-router.get('/home', (req, res, next) => {
+router.get('/home', userHelpers.isLogin, (req, res, next) => {
   res.render('index');
 });
 
