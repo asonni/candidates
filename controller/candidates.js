@@ -11,11 +11,14 @@ module.exports = {
       }
     });
   },
-  getAllCandidates: function(limit,page,cb) {
+  getAllCandidates: function(user,limit,page,cb) {
     page = parseInt(page);
     page -= 1;
     limit = parseInt(limit);
     var q = {status:1};
+    if(user.level == 3){
+      q.office = user.office;
+    }
     model.Candidates.count(q, function(err, count) {
       model.Candidates
         .find(q)
@@ -35,12 +38,12 @@ module.exports = {
   addCandidate: function(body, cb) {
     var obj = body;
     candidates = new model.Candidates(obj);
-    candidates.save(function(err) {
+    candidates.save(function(err,result) {
       if (!err) {
-        cb(true);
+        cb({ result: result, err: 0 });
       } else {
         console.log(err);
-        cb(false);
+        cb({ result: false, err: 2 });
       }
     });
   },
@@ -55,13 +58,16 @@ module.exports = {
       }
     });
   },
-  getAllCandidatesBySearchValue: function(body,limit,page,cb) {
+  getAllCandidatesBySearchValue: function(user,body,limit,page,cb) {
     page = parseInt(page);
     page -= 1;
     limit = parseInt(limit);
     q = {
       status: 1,
     };
+    if(user.level == 3){
+      q.office = user.office;
+    }
     if(body.nid ){
       q.nid= new RegExp(body.nid, 'i')
     }

@@ -14,8 +14,23 @@ router.post('/', userHelpers.isLogin, (req, res) => {
   if(userHelpers.isForm(req.body)){
     ElectionMgr.getLastElection(election =>{
       req.body['election']=election._id;
+      req.body['office']=req.user.office;
       CandidatesMgr.addCandidate(req.body, newCandidate => {
-        res.send(newCandidate);
+        if(newCandidate.result){
+          LogMgr.newLog({
+            user_iduser :req.user._id,
+            office :req.user.office,
+            type :"add",
+            table :"Candidate",
+            desc :"add new Candidate name : "+req.body.f_name+' '+req.body.p_name+' '+req.body.g_name+' '+req.body.l_name,
+            table_idtable : newCandidate.result._id,
+            value: req.body.name
+          },log =>{
+            res.send(newCandidate);
+          });
+        }else{
+          res.send(newCandidate);
+        }
       });
     });
     
@@ -56,12 +71,12 @@ router.get('/getCompetition', userHelpers.isLogin, (req, res) => {
 
 // /*GET all Candidates By Search Value*/
 router.post('/get/:limit/:page', userHelpers.isLogin, (req, res) => {
-  CandidatesMgr.getAllCandidatesBySearchValue(req.body,req.params.limit,req.params.page,function(Candidates) {
+  CandidatesMgr.getAllCandidatesBySearchValue(req.userوreq.body,req.params.limit,req.params.page,function(Candidates) {
     res.send(Candidates);
   });
 });
 router.get('/:limit/:page', userHelpers.isLogin, (req, res) => {
-  CandidatesMgr.getAllCandidates(req.params.limit,req.params.page,Candidates => {
+  CandidatesMgr.getAllCandidates(req.user,req.params.limit,req.params.page,Candidates => {
     res.send(Candidates);
   });
 });
