@@ -498,13 +498,6 @@
       );
       $scope.editCandidate = function() {
         $scope.laddaStatus = true;
-        $scope.editCandidateForm.attachment = $.map(
-          $scope.editCandidateForm.attachment,
-          function(value, index) {
-            console.log([index]);
-            return [index];
-          }
-        );
         candidateService
           .editCandidate($stateParams.id, $scope.editCandidateForm)
           .then(

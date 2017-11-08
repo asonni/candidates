@@ -12,12 +12,15 @@ a,
 .btn,
 .label {
   font-family: 'JFFlat', sans-serif;
+  color: #2a89cf;
 }
 body {
   font-family: 'JFFlat', sans-serif;
+  color: #2a89cf;
 }
 #login {
   padding-top: 50px;
+  color: #2a89cf;
 }
 #login .form-wrap {
   width: 30%;
@@ -85,7 +88,7 @@ body {
 }
 .btn-custom {
   color: #fff;
-  background-color: #1fa67b;
+  background-color: #2a89cf;
 }
 .btn-custom:hover,
 .btn-custom:focus {
@@ -105,4 +108,8 @@ body {
 }
 #footer a {
   color: inherit;
+}
+.hnec-logo {
+  /*width: 60%;*/
+  margin: 0px auto;
 }
