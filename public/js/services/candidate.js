@@ -41,6 +41,7 @@
           return promise;
         },
         editCandidate: function(id, candidateObj) {
+          console.log(candidateObj);
           var promise = $http
             .put('/candidates/edit/' + id, candidateObj)
             .then(function(response) {

@@ -365,6 +365,7 @@
       $scope.getCompetition();
       $scope.newCandidate = function() {
         $scope.laddaStatus = true;
+        console.log($scope.newCandidateForm.attachment)
         $scope.newCandidateForm.attachment = $.map(
           $scope.newCandidateForm.attachment,
           function(value, index) {
@@ -402,6 +403,7 @@
       };
     }
   ]);
+
 
   app.controller('editCandidateCtrl', [
     '$scope',
@@ -496,32 +498,44 @@
           console.log('Something went wrong ' + response.data);
         }
       );
+
       $scope.editCandidate = function() {
         $scope.laddaStatus = true;
-        candidateService
-          .editCandidate($stateParams.id, $scope.editCandidateForm)
-          .then(
-            function(response) {
-              if (response) {
-                $timeout(function() {
-                  $scope.editCandidateForm = {};
-                  $scope.laddaStatus = false;
-                  toastr.info('تم التعديل بنجاح');
-                  $state.go('candidates');
-                }, 500);
-              } else {
-                $scope.laddaStatus = false;
-                toastr.error('خطأ في عملية التعديل, الرجاء اعادة المحاولة');
-              }
-            },
-            function(response) {
-              $scope.laddaStatus = false;
-              toastr.error(
-                'يوجد خطأ في تعديل هذا المرشح, الرجاء الاتصال بمشرف المنضومة'
-              );
-              console.log('Something went wrong ' + response.data);
-            }
-          );
+        console.log($scope.editCandidateForm.attachment);
+        $scope.editCandidateForm.attachment = $.map(
+          $scope.editCandidateForm.attachment,
+          function(value, index) {
+            console.log("s");
+          }
+        );
+        console.log($scope.editCandidateForm.attachment);
+       // for(var i  in $scope.editCandidateForm.attachment ){
+       //  console.log(i)
+       // }
+        // candidateService
+        //   .editCandidate($stateParams.id, $scope.editCandidateForm)
+        //   .then(
+        //     function(response) {
+        //       if (response) {
+        //         $timeout(function() {
+        //           $scope.editCandidateForm = {};
+        //           $scope.laddaStatus = false;
+        //           toastr.info('تم التعديل بنجاح');
+        //           $state.go('candidates');
+        //         }, 500);
+        //       } else {
+        //         $scope.laddaStatus = false;
+        //         toastr.error('خطأ في عملية التعديل, الرجاء اعادة المحاولة');
+        //       }
+        //     },
+        //     function(response) {
+        //       $scope.laddaStatus = false;
+        //       toastr.error(
+        //         'يوجد خطأ في تعديل هذا المرشح, الرجاء الاتصال بمشرف المنضومة'
+        //       );
+        //       console.log('Something went wrong ' + response.data);
+        //     }
+        //   );
       };
     }
   ]);
