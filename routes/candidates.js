@@ -42,7 +42,6 @@ router.post('/', userHelpers.isLogin, (req, res) => {
 
 // /* Edit Candidates by id  */
 router.put('/edit/:id', userHelpers.isLogin, (req, res) => {
-  console.log(req.body);
   CandidatesMgr.updateCandidate(req.params.id, req.body, returnCandidate => {
     res.send(returnCandidate);
   });
