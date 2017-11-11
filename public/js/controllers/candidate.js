@@ -365,6 +365,7 @@
       $scope.getCompetition();
       $scope.newCandidate = function() {
         $scope.laddaStatus = true;
+        $scope.error=[];
         $scope.newCandidateForm.attachment = $.map(
           $scope.newCandidateForm.attachment,
           function(value, index) {
@@ -385,7 +386,8 @@
               toastr.error('الرجاء اضافة مترشح جديد');
             } else if (response.data.err == 4) {
               $scope.laddaStatus = false;
-              toastr.error('خطأ الرجاء ادخال البيانات بالشكل الصحيح ');
+              $scope.error = response.data.result;
+              toastr.error(response.data.result);
             } else {
               $scope.laddaStatus = false;
               toastr.error('خطأ في عملية الادخال, الرجاء اعادة المحاولة');

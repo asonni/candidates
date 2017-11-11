@@ -11,7 +11,8 @@ const LogMgr = require('../controller/logs');
 
 /* Add new Candidates  */
 router.post('/', userHelpers.isLogin, (req, res) => {
-  if(userHelpers.isForm(req.body)){
+  var result=userHelpers.isForm(req.body);
+  if(!result.length){
     ElectionMgr.getLastElection(election =>{
       req.body['election']=election._id;
       req.body['office']=req.user.office;
@@ -35,7 +36,7 @@ router.post('/', userHelpers.isLogin, (req, res) => {
     });
     
   }else{
-    res.send({ result: false, err: 4 });
+    res.send({ result: result, err: 4 });
   }
   
 });

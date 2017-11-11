@@ -15,22 +15,39 @@ module.exports = {
     return isNameAR(name);
   },
   isForm: function(body) {
-    if (
-      isNid(body.nid) &&
-      isCra(body.cra) &&
-      isNameAR(body.f_name) &&
-      isNameAR(body.p_name) &&
-      isNameAR(body.g_name) &&
-      isNameAR(body.l_name) &&
-      isNameAR(body.mother_name) &&
-      isPhone(body.phone) &&
-      isPhone(body.work_phone) &&
-      isEmail(body.email)
-    ) {
-      return true;
-    } else {
-      return false;
+    var errors =[];
+    if(!isNid(body.nid)){
+      errors.push("الرجاء ادخال الرقم الوطني بالشكل الصحيح");
     }
+    if(!isCra(body.cra)){
+      errors.push("الرجاء ادخال الرقم الوطني بالشكل الصحيح");
+    }
+    if(!isNameAR(body.f_name)){
+      errors.push("الرجاء ادخال الرقم الوطني بالشكل الصحيح");
+    }
+    if(!isNameAR(body.p_name)){
+      errors.push("الرجاء ادخال الرقم الوطني بالشكل الصحيح");
+    }
+    if(!isNameAR(body.g_name)){
+      errors.push("الرجاء ادخال الرقم الوطني بالشكل الصحيح");
+    }
+    if(!isNameAR(body.l_name)){
+      errors.push("الرجاء ادخال الرقم الوطني بالشكل الصحيح");
+    }
+    if(!isNameAR(body.mother_name)){
+      errors.push("الرجاء ادخال الرقم الوطني بالشكل الصحيح");
+    }
+    if(!isPhone(body.phone)){
+      errors.push("الرجاء ادخال الرقم الوطني بالشكل الصحيح");
+    }
+    if(!isPhone(body.work_phone)){
+      errors.push("الرجاء ادخال الرقم الوطني بالشكل الصحيح");
+    }
+    if(!isEmail(body.email)){
+      errors.push("الرجاء ادخال الرقم الوطني بالشكل الصحيح");
+    }
+    return errors;
+
   }
   // isAdmin : function (req,res,next) {
   //    if (req.isAuthenticated()&&req.user.level==1) {
@@ -48,13 +65,13 @@ function isEmail(email) {
 }
 
 function isNid(nid) {
-  return validator.isInt(nid, [{ min: 12, max: 12 }]);
+  return validator.isInt(nid, { min: 12, max: 12 });
 }
 function isCra(cra) {
-  return validator.isInt(cra, [{ min: 1, max: 12 }]);
+  return validator.isInt(cra, { min: 1, max: 12 });
 }
 function isPhone(phone) {
-  return validator.isInt(phone, [{ min: 9, max: 12 }]);
+  return validator.isInt(phone, { min: 9, max: 12 });
 }
 function isG(g) {
   return validator.isCurrency(g, { digits_after_decimal: [1, 2] });

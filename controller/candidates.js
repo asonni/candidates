@@ -49,7 +49,7 @@ module.exports = {
   },
   updateCandidate: function(id, body, cb) {
     var obj = body;
-    model.Candidates.findOneAndUpdate({ _id: id,status:1 }, obj, function(err) {
+    model.Candidates.findOneAndUpdate({ _id: id,status:1 }, obj, function(err,result) {
       if (!err) {
         cb(true);
       } else {
