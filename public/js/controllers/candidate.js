@@ -507,6 +507,7 @@
           arr.push(i);
         }
         $scope.editCandidateForm.attachment=arr;
+
         candidateService
           .editCandidate($stateParams.id, $scope.editCandidateForm)
           .then(
