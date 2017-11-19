@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const Subconstituency = new Schema({
   subconstituency_id :{type : Number},
   name_ar: { type: String },
-  name_en: { type: String },
+  name_en: { type: String,default:null },
   office: { type: Schema.Types.ObjectId, ref: 'Office' },
   status: {type: Number, default:1}
 });

@@ -3,9 +3,9 @@ const timestamps = require('mongoose-timestamp');
 const Schema = mongoose.Schema;
 
 const Office = new Schema({
-  office_id : {type : Number},
+  office_id : {type : String},
   name_ar: { type: String },
-  name_en: { type: String },
+  name_en: { type: String,default:null },
   status: {type: Number, default:1}
 });
 
