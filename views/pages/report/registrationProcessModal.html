@@ -1,0 +1,28 @@
+<div id="confrimReportModal" class="modal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="$hide()">&times;</button>
+        <h4 class="modal-title">{{modalTitle}}</h4>
+      </div>
+      <form novalidate ng-submit="confirmRegistrationProcess()">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+              <div class="form-group">
+                <label class="control-label">نوع الانتخابات</label>
+                <select class="form-control input-sm" ng-model="reportObj.election" ng-options="election._id as election.name for election in elections" ng-required="required">
+                  <option value="" disabled selected>الرجاء الاختيار</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default btn-sm" ng-click="registrationProcessModal.hide()"><i class="fa fa-ban" aria-hidden="true"></i></i>&nbsp;الغاء</button>
+          <button type="submit" class="btn btn-success btn-sm" ladda="laddaModal"><i class="fa fa-print" aria-hidden="true"></i>&nbsp;طباعة</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

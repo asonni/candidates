@@ -236,7 +236,7 @@
           }
           return body;
         }
-        var docDefinition = {
+        var candidates = {
           pageSize: 'A4',
           pageOrientation: 'landscape',
           content: [
@@ -244,7 +244,7 @@
               columns: [
                 {
                   text: helpers.leftToRight(
-                    'المفوضية الوطنية العليا لأنتخابات'
+                    'المفوضية الوطنية العليا للانتخابات'
                   ),
                   style: 'headerStyle'
                 }
@@ -294,7 +294,7 @@
             alignment: 'center'
           }
         };
-        pdfMake.createPdf(docDefinition).open();
+        pdfMake.createPdf(candidates).open();
       };
     }
   ]);

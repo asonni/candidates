@@ -1,0 +1,47 @@
+/* 1 */
+{
+    "_id" : ObjectId("59f5a4c645d96b1f5d5ee301"),
+    "createdAt" : ISODate("2017-10-29T09:52:06.599Z"),
+    "updatedAt" : ISODate("2017-10-29T09:52:06.599Z"),
+    "email" : "aladdin.sonni@gmail.com",
+    "password" : "msJQTDBNRrNZ/CtAA2IWpSTwbAtvvyLO4eybP1oFVc2t5ADPkksMrsbZbA4I50CfLcJH+UTNwxBtg+nJ5GPqSETrLy1WRIGG5N1cXJCFhaUQGaIJEfsj5TkmL5crkeSMqoAk8jmN9yTNM7YLNcJCfn9avtasYboJCtUsE1K/S6Rk5gVqpJuO4/hK0l0ggIcm/YsDDzh788JHNqixBrbZw67nwFWsC0dZVNFD1IY0q+X3MO8jqR5+FB/ah77lo00BfO72n2q1C0vzM+jLk0NzWCrvYZstLQ0p7G45dwUSLRHplvd456sCHSu8LD90vV815kiyGod8iWsOo+T6e/oeOQ==",
+    "salt" : "200.5vV8gNNeT4FPJffNuRdHo0glkE6h77q5Wu9/+rcQsWM=",
+    "office" : ObjectId("59e87dab04a135bbe20e4f59"),
+    "status" : 1,
+    "level" : 1,
+    "phone" : "0926847264",
+    "name" : "علاء الدين",
+    "__v" : 0
+}
+
+/* 2 */
+{
+    "_id" : ObjectId("59f5b6bf08c52c37a9efa4db"),
+    "createdAt" : ISODate("2017-10-29T11:08:47.650Z"),
+    "updatedAt" : ISODate("2017-10-29T11:08:47.650Z"),
+    "email" : "aladdin.sonni@yahoo.com",
+    "password" : "5JH83soRDtsOhRwwqMVdFkvp42QtMYwUm7Gh9LXJiiPOieseUd32bXyge/l7LxUxkTN8Js9EuLF7DiExf54lM6jtiq3n7chk1UEzQ/iFoQ7AOup16TE1JEFB/mb369XGCsDQJdcR+Lvxwh3ITU96mQUxBeuy8iWRYE3PnWb4dw0Eu6fXhpUxv9FpoyswkesTs8jfi7r4DKSDdDHbeiydKaJbNHkqUrHLGrx5UveWMEu7Koa3Q+rCL44n0lMdiUneQWxIZlGYRgtxaLhFQD7Qm6jxW92PTusJXn9DPrsv12TTE24xW4yXBjKf1c5mFuCS81RmVVIvkSB0QeWiQkVjXg==",
+    "salt" : "200.I6CrrFSov8930aRbAoG4/NYhapU0NTNHu9j0YseaAco=",
+    "office" : ObjectId("59e87dab04a135bbe20e4f59"),
+    "status" : 1,
+    "level" : 2,
+    "phone" : "09264876543",
+    "name" : "علاء الدين",
+    "__v" : 0
+}
+
+/* 3 */
+{
+    "_id" : ObjectId("59f5b6d708c52c37a9efa4dc"),
+    "createdAt" : ISODate("2017-10-29T11:09:11.363Z"),
+    "updatedAt" : ISODate("2017-10-29T11:09:11.363Z"),
+    "email" : "alaaden3000@gmail.com",
+    "password" : "6AqL2nrh6OQDbOdSwJbtB/XJJMnXp1jjJLXP/ZWd8H6irIzDoRpBxGdaJU7yzx/XnJ7oNvPENzvqZubl5PaWrspt47k7ux6617zufL505naQGY3n+2QZ2zNUEL8E2p0LPlz+S76SLoAXDdAJO67IPbjjZ9z5+QgBVBEu1j456pxxjED3/EyZBVhk3Jv5KAebsZQ3J2VnGzHBGA5ikMk/c8IiicVKp2+16mcge9Sus41C0J9qpsaanL6angR77LVrBxS9XalGZmpoYegQvdjpSay+UTZ/N8+tz8xUuq4TnUj26+LRNOSu1ypvscYKcxv+6hg454SN4To5gCq6mQnVdQ==",
+    "salt" : "200.3aodWJXlCfIZtKF458z3EX4U24/B9W2/iD64juSk+jA=",
+    "office" : ObjectId("59e87dab04a135bbe20e4f59"),
+    "status" : 1,
+    "level" : 3,
+    "phone" : "0927789548",
+    "name" : "علاء الدين",
+    "__v" : 0
+}
