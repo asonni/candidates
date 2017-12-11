@@ -14,6 +14,10 @@
 
   app.constant('_', window._);
 
+  app.filter('unsafe', function($sce) {
+    return $sce.trustAsHtml;
+  });
+
   app.run([
     '$rootScope',
     '$state',
@@ -346,6 +350,54 @@
                     '/js/services/helpers.js',
                     '/js/services/attachment.js',
                     '/js/controllers/attachment.js'
+                  ]
+                });
+              }
+            ]
+          },
+          onEnter: [
+            '$rootScope',
+            '$state',
+            'toastr',
+            'authService',
+            function($rootScope, $state, toastr, authService) {
+              $rootScope.authGuard = {};
+              authService.authGuard().then(
+                function(response) {
+                  if (response.data.level === 1 || response.data.level === 2) {
+                    $rootScope.authGuard = response.data;
+                    return true;
+                  } else if (response.data.level === 0) {
+                    window.location.replace('/logout');
+                    return false;
+                  } else {
+                    toastr.error('ليس لديك إذن بالدخول إلى هذه الصفحة');
+                    $state.go('candidates');
+                    return false;
+                  }
+                },
+                function(response) {
+                  console.log(response.data);
+                }
+              );
+            }
+          ]
+        })
+        .state('reports', {
+          url: '/reports',
+          templateUrl: 'pages/report/reports',
+          data: { pageTitle: 'التقارير' },
+          controller: 'reportsCtrl',
+          resolve: {
+            deps: [
+              '$ocLazyLoad',
+              function($ocLazyLoad) {
+                return $ocLazyLoad.load({
+                  insertBefore: '#ngLoadControllersBefore',
+                  files: [
+                    '/js/services/helpers.js',
+                    '/js/services/report.js',
+                    '/js/controllers/report.js'
                   ]
                 });
               }
